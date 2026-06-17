@@ -1,0 +1,12 @@
+CompileFlags:
+  Add:
+    - -isystem/home/nhrob/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/lib/gcc/xtensa-esp-elf/14.2.0/include
+    - -isystem/home/nhrob/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/lib/gcc/xtensa-esp-elf/14.2.0/include-fixed
+    - -isystem/home/nhrob/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/xtensa-esp-elf/include
+  Remove:
+    - -mlongcalls
+    - -mdisable-hardware-atomics
+    - -fstrict-volatile-bitfields
+    - -fno-tree-switch-conversion
+    - -mdynconfig=*
+    - -fno-shrink-wrap
