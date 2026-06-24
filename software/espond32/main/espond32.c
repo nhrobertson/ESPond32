@@ -1,11 +1,24 @@
-/* Blink Example
+/* ESPond32
+  
+   The ESPond32 is a IoT modular control unit to operate a series of pumps, a water valve, and monitoring water level
 
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
+   It acts as the spirtual successor to the much less complex PondPi. This firmware is commited to the Public Domain for reuse under the GPL 3 license.
+  
+   Architectural Desicions:
 
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
+   1. The main devices will all contain 3 GPIO Pins.
+        - 2 Outputs to drive signals
+        - 1 Input for configurable 3 state switch
+   2. MQTT service to interact with a home server for Dashboard control instead of a on device hosted HTML webpage
+   3. Drive signals take higher priority then Scheduabilty of said drive signals
+
+   Hardware Requirements:
+
+   The ESPond32 will have a custom pcb associated with this project, which preconnects input and output signals from the ESP32-WROOM-1
+
+   For the inital version (v1), output signals to pumps and the valve will be driven by an external SSR, so a 3v3 gpio output signal is enough to statisfy
 */
+
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -14,65 +27,15 @@
 #include "led_strip.h"
 #include "sdkconfig.h"
 
-static const char *TAG = "example";
+static const char *TAG = "espond32";
 
-/* Use project configuration menu (idf.py menuconfig) to choose the GPIO to blink,
-   or you can edit the following line and set a number here.
-*/
 #define BLINK_GPIO 38
 
 static uint8_t s_led_state = 0;
 
-#define CONFIG_BLINK_LED_STRIP 1
+#define CONFIG_BLINK_LED_GPIO 1
 #define CONFIG_BLINK_PERIOD 1000
 
-
-#ifdef CONFIG_BLINK_LED_STRIP
-
-static led_strip_handle_t led_strip;
-
-static void blink_led(void)
-{
-    /* If the addressable LED is enabled */
-    if (s_led_state) {
-        /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
-        led_strip_set_pixel(led_strip, 0, 16, 16, 16);
-        /* Refresh the strip to send data */
-        led_strip_refresh(led_strip);
-    } else {
-        /* Set all LED off to clear all pixels */
-        led_strip_clear(led_strip);
-    }
-}
-
-static void configure_led(void)
-{
-    ESP_LOGI(TAG, "Example configured to blink addressable LED!");
-    /* LED strip initialization with the GPIO and pixels number*/
-    led_strip_config_t strip_config = {
-        .strip_gpio_num = BLINK_GPIO,
-        .max_leds = 1, // at least one LED on board
-    };
-#if CONFIG_BLINK_LED_STRIP_BACKEND_RMT
-    led_strip_rmt_config_t rmt_config = {
-        .resolution_hz = 10 * 1000 * 1000, // 10MHz
-        .flags.with_dma = false,
-    };
-    ESP_ERROR_CHECK(led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip));
-#elif CONFIG_BLINK_LED_STRIP_BACKEND_SPI
-    led_strip_spi_config_t spi_config = {
-        .spi_bus = SPI2_HOST,
-        .flags.with_dma = true,
-    };
-    ESP_ERROR_CHECK(led_strip_new_spi_device(&strip_config, &spi_config, &led_strip));
-#else
-//#error "unsupported LED strip backend"
-#endif
-    /* Set all LED off to clear all pixels */
-    led_strip_clear(led_strip);
-}
-
-#elif CONFIG_BLINK_LED_GPIO
 
 static void blink_led(void)
 {
@@ -87,10 +50,6 @@ static void configure_led(void)
     /* Set the GPIO as a push/pull output */
     gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
 }
-
-#else
-#error "unsupported LED type"
-#endif
 
 void app_main(void)
 {
