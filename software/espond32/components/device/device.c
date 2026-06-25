@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include "device.h"
-#include "config.h"
+#include "models.h"
+
+const device_ops_t output_ops = { 
+  .setup =   io_setup, 
+  .operate = io_operate, 
+  .disable = io_disable 
+};
 
 device_t g_devices[NUM_DEVICES] = {
-  { .name = "pump1",  .kind = DEV_PUMP,  .ops = &output_ops, .pins = &OUTPUT_PINS[0] },
-  { .name = "pump2",  .kind = DEV_PUMP,  .ops = &output_ops, .pins = &OUTPUT_PINS[1] },
-  { .name = "valve1", .kind = DEV_VALVE, .ops = &output_ops, .pins = &OUTPUT_PINS[2] },
+  { .name = "pump1",  .kind = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[0] },
+  { .name = "pump2",  .kind = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[1] },
+  { .name = "valve1", .kind = DEV_VALVE, .ops = &o_ops, .pins = &OUTPUT_PINS[2] },
   { .name = "float1", .kind = DEV_FLOAT, .ops = &input_ops,  .pins = &INPUT_PINS }
 };
 

@@ -7,6 +7,7 @@
 #include "config.h"
 #include "models.h"
 #include "led.h"
+#include "io.h"
 
 #include "driver/gpio.h"
 #include "esp_err.h"

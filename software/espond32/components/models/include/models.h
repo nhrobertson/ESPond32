@@ -29,11 +29,22 @@ typedef enum switch_pos_t {
   SW_OFF
 } switch_pos_t;
 
+typedef enum gpio_level_t {
+  GPIO_OFF = 0,
+  GPIO_ON = 1,
+  GPIO_SET,
+} gpio_mode_t;
+
+typedef struct io_mode_t {
+  enum gpio_level_t state;
+  float value;
+} io_mode_t;
+
 typedef struct device device_t;
 
 typedef struct device_ops_t {
   esp_err_t (*setup)   (device_t *dev);
-  esp_err_t (*operate) (device_t *dev);
+  esp_err_t (*operate) (device_t *dev, io_mode_t mode);
   esp_err_t (*disable) (device_t *dev);
 } device_ops_t;
 

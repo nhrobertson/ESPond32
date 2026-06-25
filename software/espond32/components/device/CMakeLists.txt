@@ -1,4 +1,4 @@
 idf_component_register(SRCS "device.c"
                        INCLUDE_DIRS "include"
-                       REQUIRES config led models
+                       REQUIRES io config led models esp_driver_gpio
 )

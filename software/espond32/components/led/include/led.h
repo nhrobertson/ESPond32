@@ -5,7 +5,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include "models.h"
-
+#include "led_strip.h"
 
 //Handles Blinking aswell
 static pix_t get_color(led_state_t state, uint64_t now); 
