@@ -1,4 +1,4 @@
-idf_component_register(SRCS "config.c"
+idf_component_register(SRCS "led.c"
                     INCLUDE_DIRS "include"
                     REQUIRES models
 )
