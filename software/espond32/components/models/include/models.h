@@ -1,9 +1,10 @@
 #ifndef MODELS_H
 #define MODELS_H
 
+#include <stdbool.h>
 #include <inttypes.h>
 #include "esp_err.h"
-#include "soc/gpio_num.h"
+#include "soc/gpio_num.h" 
 
 //Device Type Definetions
 typedef enum device_type_t {
@@ -32,8 +33,8 @@ typedef enum switch_pos_t {
 typedef enum gpio_level_t {
   GPIO_OFF = 0,
   GPIO_ON = 1,
-  GPIO_SET,
-} gpio_mode_t;
+  GPIO_GET,
+} gpio_level_t;
 
 typedef struct io_mode_t {
   enum gpio_level_t state;
@@ -44,7 +45,7 @@ typedef struct device device_t;
 
 typedef struct device_ops_t {
   esp_err_t (*setup)   (device_t *dev);
-  esp_err_t (*operate) (device_t *dev, io_mode_t mode);
+  esp_err_t (*operate) (device_t *dev, io_mode_t *mode);
   esp_err_t (*disable) (device_t *dev);
 } device_ops_t;
 
@@ -68,6 +69,23 @@ typedef struct led_t {
   led_state_t state;
   const led_ops_t *ops;
 } led_t;
+
+struct device {
+  const char *name;
+  device_type_t type;
+  const device_ops_t *ops;
+  led_t led;
+  const void *pins;
+  union {
+    struct out {
+      switch_pos_t sw;
+      bool         on;
+    } out;
+    struct in {
+      bool         active;
+    } in;
+  } u;
+} device;
 
 
 //Return Type Definitions

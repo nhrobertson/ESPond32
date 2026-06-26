@@ -1,18 +1,12 @@
-#include <stdio.h>
 #include "device.h"
-#include "models.h"
+#include "led.h"
 
-const device_ops_t output_ops = { 
-  .setup =   io_setup, 
-  .operate = io_operate, 
-  .disable = io_disable 
-};
 
 device_t g_devices[NUM_DEVICES] = {
-  { .name = "pump1",  .kind = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[0] },
-  { .name = "pump2",  .kind = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[1] },
-  { .name = "valve1", .kind = DEV_VALVE, .ops = &o_ops, .pins = &OUTPUT_PINS[2] },
-  { .name = "float1", .kind = DEV_FLOAT, .ops = &input_ops,  .pins = &INPUT_PINS }
+  { .name = "pump1",  .type = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[0] },
+  { .name = "pump2",  .type = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[1] },
+  { .name = "valve1", .type = DEV_VALVE, .ops = &o_ops, .pins = &OUTPUT_PINS[2] },
+  { .name = "float1", .type = DEV_FLOAT, .ops = &i_ops, .pins = &INPUT_PINS }
 };
 
 DEVICE_RET get_device(char* name) {
@@ -32,8 +26,20 @@ DEVICE_RET get_device(char* name) {
 INIT_RET devices_init() {
   esp_err_t ret_status = ESP_FAIL;
   char *name = "none";
+  INIT_RET ret = { .dev = NULL, .ret_status = ret_status };
+
+  LED_INIT_RET led_ret = leds_init();
   for (int i = 0; i < NUM_DEVICES; ++i) {
     //Attach LED
+    led_t led = { .state = false, .ops = &led_ops }; 
+    g_devices[i].led = led;
 
+    g_devices[i].led.ops->set_color(&g_devices[i], GREEN);
+    //Setup GPIO
+    ret.ret_status = g_devices[i].ops->setup(&g_devices[i]);
+
+    g_devices[i].led.ops->set_color(&g_devices[i], BLACK);
   }
+  
+  return ret;
 }

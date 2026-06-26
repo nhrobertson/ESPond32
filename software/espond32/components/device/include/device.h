@@ -6,8 +6,8 @@
 
 #include "config.h"
 #include "models.h"
-#include "led.h"
 #include "io.h"
+#include "led.h"
 
 #include "driver/gpio.h"
 #include "esp_err.h"
@@ -32,22 +32,6 @@
  *  1. Float Sensor 1
  **/
 
-struct device {
-  const char *name;
-  device_type_t type;
-  const device_ops_t *ops;
-  led_t led;
-  const void *pins;
-  union {
-    struct out {
-      switch_pos_t sw;
-      bool         on;
-    } out;
-    struct in {
-      bool         active;
-    } in;
-  } u;
-} device;
 
 //Set according to your specifications
 static const output_pins_t OUTPUT_PINS[NUM_OUTPUTS] = {
