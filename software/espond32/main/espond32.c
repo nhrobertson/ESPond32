@@ -26,12 +26,14 @@
 #include "esp_log.h"
 #include "led_strip.h"
 #include "sdkconfig.h"
+#include "device.h"
+#include "models.h"
 
 static const char *TAG = "espond32";
 
 void app_main(void)
 {
-
+    devices_init();
     //Check Flash Status
     
 }

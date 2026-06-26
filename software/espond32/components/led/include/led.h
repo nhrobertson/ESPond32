@@ -8,19 +8,19 @@
 #include "led_strip.h"
 #include "config.h"
 
-const pix_t RED       = {255, 0, 0};
-const pix_t GREEN     = {0, 255, 0};
-const pix_t BLUE      = {0, 255, 0};
-const pix_t BLACK     = {0, 0, 0};
-const pix_t YELLOW    = {255, 255, 0};
-const pix_t AMBER     = {255, 128, 0};
+extern const pix_t PIX_RED;
+extern const pix_t PIX_GREEN;
+extern const pix_t PIX_BLUE;
+extern const pix_t PIX_BLACK;
+extern const pix_t PIX_YELLOW;
+extern const pix_t PIX_AMBER;
 
 
 static pix_t get_color(led_state_t state, uint64_t now); 
 
 LED_INIT_RET leds_init();
 
-extern const led_ops_t led_ops; 
+extern const led_ops_t dev_led_ops; 
 
 
 #endif //LED_H

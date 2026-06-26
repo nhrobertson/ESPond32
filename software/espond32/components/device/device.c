@@ -31,14 +31,14 @@ INIT_RET devices_init() {
   LED_INIT_RET led_ret = leds_init();
   for (int i = 0; i < NUM_DEVICES; ++i) {
     //Attach LED
-    led_t led = { .state = false, .ops = &led_ops }; 
+    led_t led = { .state = false, .ops = &dev_led_ops }; 
     g_devices[i].led = led;
 
-    g_devices[i].led.ops->set_color(&g_devices[i], GREEN);
+    g_devices[i].led.ops->set_color(&g_devices[i], PIX_GREEN);
     //Setup GPIO
     ret.ret_status = g_devices[i].ops->setup(&g_devices[i]);
 
-    g_devices[i].led.ops->set_color(&g_devices[i], BLACK);
+    g_devices[i].led.ops->set_color(&g_devices[i], PIX_BLACK);
   }
   
   return ret;

@@ -2,6 +2,14 @@
 #include "led_strip.h"
 #include "models.h"
 
+
+const pix_t PIX_RED       = {.r = 255, .g = 0, .b = 0};
+const pix_t PIX_GREEN     = {.r = 0, .g = 255, .b = 0};
+const pix_t PIX_BLUE      = {.r = 0, .g = 255, .b = 0};
+const pix_t PIX_BLACK     = {.r = 0, .g = 0, .b = 0};
+const pix_t PIX_YELLOW    = {.r = 255, .g = 255, .b = 0};
+const pix_t PIX_AMBER     = {.r = 255, .g = 128, .b = 0};
+
 led_strip_handle_t led_strip = NULL;
 
 LED_INIT_RET leds_init() {
@@ -30,6 +38,8 @@ LED_INIT_RET leds_init() {
 
   /// Create the LED strip object
   ESP_ERROR_CHECK(led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip));
+  
+  led_strip_clear(led_strip);
   
   return ret;
 }

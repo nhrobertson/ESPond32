@@ -5,6 +5,7 @@
 #include <inttypes.h>
 #include "esp_err.h"
 #include "soc/gpio_num.h" 
+#include "config.h"
 
 //Device Type Definetions
 typedef enum device_type_t {
@@ -70,7 +71,7 @@ typedef struct led_t {
   const led_ops_t *ops;
 } led_t;
 
-struct device {
+extern struct device {
   const char *name;
   device_type_t type;
   const device_ops_t *ops;
