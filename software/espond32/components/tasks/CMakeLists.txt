@@ -1,2 +1,2 @@
-idf_component_register(SRCS "float_sens.c"
+idf_component_register(SRCS "tasks.c"
                     INCLUDE_DIRS "include")
