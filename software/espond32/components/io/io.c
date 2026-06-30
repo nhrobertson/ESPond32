@@ -59,6 +59,7 @@ esp_err_t read_gpio(gpio_num_t GPIO_NUM, io_mode_t *mode) {
   }
 
   mode->value = level;
+  mode->state = level;
   return ret;
 }
 
@@ -129,6 +130,56 @@ esp_err_t output_operate(device_t *device, io_mode_t *mode) {
   return ret;
 }
 
+esp_err_t output_check(device_t *device) {
+  esp_err_t ret;
+  //Check the Output Device's Switches
+  gpio_num_t sw_a = ((const output_pins_t*)device->pins)->sw_a;
+  gpio_num_t sw_b = ((const output_pins_t*)device->pins)->sw_b;
+  
+  io_mode_t sw_a_state;
+  io_mode_t sw_b_state;
+
+  ret = read_gpio(sw_a, &sw_a_state);
+  if (ret != ESP_OK) { return ret; }
+
+  ret = read_gpio(sw_b, &sw_b_state);
+  if (ret != ESP_OK) { return ret; }
+
+  //Impossible for the Switch A and Switch B to be on at the same time
+  if (sw_a_state.state) {
+    //On
+    device->u.out.sw = SW_ON;
+  } else if (sw_b_state.state) {
+    //Off
+    device->u.out.sw = SW_OFF;
+  } else {
+    //Auto
+    device->u.out.sw = SW_AUTO;
+  }
+
+  return ret;
+}
+
+esp_err_t input_check(device_t *device) {
+  esp_err_t ret;
+  //Check the input device's level
+  
+  gpio_num_t float_sens = ((const input_pins_t*)device->pins)->float_sens;
+
+  io_mode_t float_sens_state;
+
+  ret = read_gpio(float_sens, &float_sens_state);
+  if (ret != ESP_OK) { return ret; }
+
+  if (float_sens_state.state) {
+    device->u.in.active = true;
+  } else {
+    device->u.in.active = false;
+  }
+
+  return ret;
+}
+
 esp_err_t io_disable(device_t *device) {
   esp_err_t ret = ESP_ERR_INVALID_ARG;
   switch (device->type) {
@@ -191,14 +242,34 @@ static esp_err_t channel_disable(device_t *self) {
   return ret;
 }
 
+static esp_err_t input_channel_check(device_t *self) {
+  esp_err_t ret;
+  ret = input_check(self);
+  if (ret == ESP_OK) {
+    //Resolve State
+  } 
+  return ret;
+}
+
+static esp_err_t output_channel_check(device_t *self) {
+  esp_err_t ret;
+  ret = output_check(self);
+  if (ret == ESP_OK) {
+    //Resolve State
+  } 
+  return ret;
+}
+
 const device_ops_t o_ops = {
     .setup  = channel_setup,
     .operate = output_channel_operate,
+    .check   = output_channel_check,
     .disable = channel_disable
 };
 
 const device_ops_t i_ops = {
     .setup = channel_setup,
     .operate = input_channel_operate,
+    .check   = input_channel_check,
     .disable = channel_disable
 };

@@ -47,6 +47,7 @@ typedef struct device device_t;
 typedef struct device_ops_t {
   esp_err_t (*setup)   (device_t *dev);
   esp_err_t (*operate) (device_t *dev, io_mode_t *mode);
+  esp_err_t (*check)   (device_t *dev);
   esp_err_t (*disable) (device_t *dev);
 } device_ops_t;
 
@@ -104,5 +105,24 @@ typedef struct LED_INIT_RET {
   char *name;
   esp_err_t ret_status;
 } LED_INIT_RET;
+
+//Configuration Models
+typedef struct output_schedule_t {
+  uint16_t on_min;
+  uint16_t off_min;
+  uint8_t days_mask;
+} output_schedule_t;
+
+typedef struct float_cfg_t {
+  uint16_t threshold_min;
+  uint16_t overflow_min;
+  uint8_t max_fills_per_day;
+} float_cfg_t;
+
+typedef struct espond_cfg_t {
+  uint16_t version;
+  output_schedule_t outputs[NUM_OUTPUTS];
+  float_cfg_t float_sens;
+} espond_cfg_t;
 
 #endif //MODELS_H

@@ -1,7 +1,3 @@
-#include <stdio.h>
 #include "config.h"
 
-void func(void)
-{
-
-}
+esp_err_t parse_config_json();

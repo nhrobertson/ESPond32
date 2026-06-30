@@ -1,6 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "models.h"
+
 #define NUM_OUTPUTS       3
 #define NUM_INPUTS        1
 #define NUM_DEVICES       (NUM_OUTPUTS + NUM_INPUTS)
@@ -34,6 +36,6 @@
 
 #define LED_DATA_GPIO         GPIO_NUM_10
 
-void func(void);
+extern volatile espond_cfg_t g_espond_cfg; 
 
 #endif //CONFIG_H

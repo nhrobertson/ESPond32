@@ -28,11 +28,15 @@
 #include "sdkconfig.h"
 #include "device.h"
 #include "models.h"
+#include "nvs_flash.h"
 
 static const char *TAG = "espond32";
 
 void app_main(void)
 {
+    esp_err_t err;
+    err = nvs_flash_init();
+
     devices_init();
     //Check Flash Status
     

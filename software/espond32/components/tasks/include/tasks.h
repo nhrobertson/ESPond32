@@ -2,9 +2,21 @@
 #define TASKS_H
 
 #include "freertos/FreeRTOS.h"
+#include "device.h"
+#include "models.h"
+#include "config.h"
 
-void task_evaluate_timers(void *args);
+//Task Master for RTOS
+//
+// Basic functionality of device:
+//
+// Check State of all GPIO devices (on/off switches | float sens)
+// Check to see if the CFG has changed
+// See if the time has passed the configured timers for automatic control
+// Operate based on configuration
+
 void task_check_io(void *args);
+void task_evaluate_timers(void *args);
 void task_check_cfg(void *args);
 void task_operate(void *args);
 
