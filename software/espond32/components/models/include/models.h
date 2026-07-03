@@ -6,6 +6,7 @@
 #include "esp_err.h"
 #include "soc/gpio_num.h" 
 #include "config.h"
+#include "cJSON.h"
 
 //Device Type Definetions
 typedef enum device_type_t {
@@ -108,21 +109,28 @@ typedef struct LED_INIT_RET {
 
 //Configuration Models
 typedef struct output_schedule_t {
-  uint16_t on_min;
-  uint16_t off_min;
+  char* name;
+  uint8_t on_hour;
+  uint8_t on_min;
+  uint8_t off_hour;
+  uint8_t off_min;
   uint8_t days_mask;
+  bool has_schedule;
 } output_schedule_t;
 
 typedef struct float_cfg_t {
-  uint16_t threshold_min;
-  uint16_t overflow_min;
+  uint8_t threshold_min;
+  uint8_t overflow_min;
   uint8_t max_fills_per_day;
 } float_cfg_t;
 
 typedef struct espond_cfg_t {
   uint16_t version;
+  uint8_t num_outputs;
   output_schedule_t outputs[NUM_OUTPUTS];
   float_cfg_t float_sens;
 } espond_cfg_t;
+
+extern volatile espond_cfg_t g_espond_cfg; 
 
 #endif //MODELS_H

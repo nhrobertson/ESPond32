@@ -4,8 +4,9 @@
 
 static EventGroupHandle_t s_net_events;
 
+
+
 static void task_net_manager(void *arg) {
-  
   //Begin network initalization
   esp_netif_init();
   esp_event_loop_create_default();
@@ -13,7 +14,7 @@ static void task_net_manager(void *arg) {
 
   wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT(); //TODO: Setup
   esp_wifi_init(&cfg);
-  register_wifi_and_ip_handlers();
+  register_network_handlers();
 
   esp_wifi_set_mode(WIFI_MODE_STA);
   esp_wifi_set_config(WIFI_IF_STA, &sta_cfg);
