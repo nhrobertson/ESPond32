@@ -5,6 +5,9 @@
 #include "device.h"
 #include "models.h"
 #include "config.h"
+#include "freertos/idf_additions.h"
+#include "freertos/projdefs.h"
+#include "filesystem.h"
 
 //Task Master for RTOS
 //
@@ -14,6 +17,7 @@
 // Check to see if the CFG has changed
 // See if the time has passed the configured timers for automatic control
 // Operate based on configuration
+
 
 void task_check_io(void *args);
 void task_evaluate_timers(void *args);

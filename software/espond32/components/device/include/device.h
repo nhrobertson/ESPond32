@@ -37,7 +37,8 @@
 static const output_pins_t OUTPUT_PINS[NUM_OUTPUTS] = {
   { .ssr = PUMP1_SSR_GPIO,  .sw_a = PUMP1_SW_A_GPIO,  .sw_b = PUMP1_SW_B_GPIO,  .led_pixel = PUMP1_LED_PIX },
   { .ssr = PUMP2_SSR_GPIO,  .sw_a = PUMP2_SW_A_GPIO, .sw_b = PUMP2_SW_B_GPIO, .led_pixel = PUMP2_LED_PIX },
-  { .ssr = VALVE1_SSR_GPIO, .sw_a = VALVE1_SW_A_GPIO, .sw_b = VALVE1_SW_B_GPIO,  .led_pixel = VALVE1_LED_PIX }
+  { .ssr = VALVE1_SSR_GPIO, .sw_a = VALVE1_SW_A_GPIO, .sw_b = VALVE1_SW_B_GPIO,  .led_pixel = VALVE1_LED_PIX },
+  { .ssr = LIGHT1_SSR_GPIO, .sw_a = LIGHT1_SW_A_GPIO, .sw_b = LIGHT1_SW_B_GPIO,  .led_pixel = LIGHT1_LED_PIX}
 };
 
 static const input_pins_t INPUT_PINS = {

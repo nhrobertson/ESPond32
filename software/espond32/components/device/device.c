@@ -1,11 +1,13 @@
 #include "device.h"
 #include "led.h"
+#include "models.h"
 
 
 device_t g_devices[NUM_DEVICES] = {
   { .name = "pump1",  .type = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[0] },
   { .name = "pump2",  .type = DEV_PUMP,  .ops = &o_ops, .pins = &OUTPUT_PINS[1] },
   { .name = "valve1", .type = DEV_VALVE, .ops = &o_ops, .pins = &OUTPUT_PINS[2] },
+  { .name = "light1", .type = DEV_LIGHT, .ops = &o_ops, .pins = &OUTPUT_PINS[3] },
   { .name = "float1", .type = DEV_FLOAT, .ops = &i_ops, .pins = &INPUT_PINS }
 };
 

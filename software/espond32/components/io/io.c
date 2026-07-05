@@ -68,6 +68,7 @@ esp_err_t io_setup(device_t *device) {
   switch (device->type) {
     case (DEV_PUMP):
     case (DEV_VALVE):
+    case (DEV_LIGHT):
       gpio_num_t ssr = ((const output_pins_t*)device->pins)->ssr;
       gpio_num_t sw_a = ((const output_pins_t*)device->pins)->sw_a;
       gpio_num_t sw_b = ((const output_pins_t*)device->pins)->sw_b;
@@ -185,6 +186,7 @@ esp_err_t io_disable(device_t *device) {
   switch (device->type) {
     case (DEV_PUMP):
     case (DEV_VALVE):
+    case (DEV_LIGHT):
       gpio_num_t ssr = ((const output_pins_t*)device->pins)->ssr;
       gpio_num_t sw_a = ((const output_pins_t*)device->pins)->sw_a;
       gpio_num_t sw_b = ((const output_pins_t*)device->pins)->sw_b;

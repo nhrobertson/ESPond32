@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <inttypes.h>
 #include "esp_err.h"
+#include "freertos/idf_additions.h"
 #include "soc/gpio_num.h" 
 #include "config.h"
 #include "cJSON.h"
@@ -12,6 +13,7 @@
 typedef enum device_type_t {
   DEV_PUMP,
   DEV_VALVE,
+  DEV_LIGHT,
   DEV_FLOAT
 } device_type_t;
 
@@ -109,7 +111,7 @@ typedef struct LED_INIT_RET {
 
 //Configuration Models
 typedef struct output_schedule_t {
-  char* name;
+  char name[16];
   uint8_t on_hour;
   uint8_t on_min;
   uint8_t off_hour;
@@ -131,6 +133,18 @@ typedef struct espond_cfg_t {
   float_cfg_t float_sens;
 } espond_cfg_t;
 
-extern volatile espond_cfg_t g_espond_cfg; 
+//RTOS variables
+
+
+#define CFG_CHANGED_BIT BIT0
+extern EventGroupHandle_t g_events;
+extern SemaphoreHandle_t cfg_buff_mutex;
+extern SemaphoreHandle_t cfg_change_mutex;
+
+
+extern volatile espond_cfg_t g_espond_cfg;
+extern espond_cfg_t g_buff_cfg;
+
+esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out);
 
 #endif //MODELS_H

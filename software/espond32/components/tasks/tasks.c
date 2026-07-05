@@ -2,6 +2,7 @@
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
 #include "models.h"
+#include "portmacro.h"
 
 void task_check_io(void *args) {
   //Iterate over all devices
@@ -22,7 +23,19 @@ void task_check_io(void *args) {
 }
 
 void tasks_check_cfg(void *args) {
-  
+ while (1) {
+   EventBits_t bits = xEventGroupWaitBits(g_events, CFG_CHANGED_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
+   if (bits & CFG_CHANGED_BIT) {
+     xSemaphoreTake(cfg_buff_mutex, portMAX_DELAY);
+     //The CFG has changed begin update process
+     nvs_store_espond_cfg(&g_buff_cfg);
+     xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
+     g_espond_cfg = g_buff_cfg;
+     xSemaphoreGive(cfg_change_mutex);
+     xSemaphoreGive(cfg_buff_mutex);
+
+   }
+ } 
 }
 
 void task_operate(void *args) {
@@ -35,6 +48,7 @@ void task_operate(void *args) {
       switch (self->type) {
         case DEV_PUMP:
         case DEV_VALVE:
+        case DEV_LIGHT:
           switch (self->u.out.sw) {
             io_mode_t control;
             case SW_ON:
@@ -44,7 +58,7 @@ void task_operate(void *args) {
               break;
             case SW_OFF:
               control.state = GPIO_OFF; 
-              control.value = 0;;
+              control.value = 0;
               err_check = self->ops->operate(self, &control);
               break;
             case SW_AUTO:

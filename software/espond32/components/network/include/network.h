@@ -8,7 +8,9 @@
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
 #include "mqtt_client.h"
-#include "esp_sntp.h"
+#include "esp_netif_sntp.h"
+
+#include "models.h"
 
 #define GOT_IP_BIT        BIT0
 #define DISCONNECT_BIT    BIT1

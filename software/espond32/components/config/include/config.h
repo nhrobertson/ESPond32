@@ -1,14 +1,14 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define NUM_OUTPUTS       3
+#define NUM_OUTPUTS       4
 #define NUM_INPUTS        1
 #define NUM_DEVICES       (NUM_OUTPUTS + NUM_INPUTS)
 
 
 #define NUM_PUMPS         2
 #define NUM_VALVES        1
-
+#define NUM_LIGHT         1
 #define NUM_FLOAT         1
 
 #define NUM_LEDS          4 //1 - Pump 1, 2 - Pump 2, 3 - Valve 1, 4 - Float Sensor
@@ -29,10 +29,18 @@
 #define VALVE1_SW_B_GPIO      GPIO_NUM_8
 #define VALVE1_LED_PIX        2
 
+#define LIGHT1_SSR_GPIO       GPIO_NUM_11
+#define LIGHT1_SW_A_GPIO      GPIO_NUM_12
+#define LIGHT1_SW_B_GPIO      GPIO_NUM_13
+#define LIGHT1_LED_PIX        4
+
 #define FLOAT1_SENS_GPIO      GPIO_NUM_9
 #define FLOAT1_LED_PIX        3
 
+#define SYS_LED_PIX           5
+
 #define LED_DATA_GPIO         GPIO_NUM_10
+
 
 
 #endif //CONFIG_H

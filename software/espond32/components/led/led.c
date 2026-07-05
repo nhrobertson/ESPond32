@@ -49,6 +49,7 @@ esp_err_t set_dev_led_color(device_t *device, pix_t pixel) {
   switch (device->type) {
     case (DEV_PUMP):
     case (DEV_VALVE):
+    case (DEV_LIGHT):
       ret = led_strip_set_pixel(led_strip, ((const output_pins_t*)device->pins)->led_pixel, pixel.r, pixel.g, pixel.b);
       break;
     case (DEV_FLOAT):
