@@ -28,6 +28,12 @@ typedef struct input_pins_t {
   uint8_t led_pixel;
 } input_pins_t;
 
+typedef enum auto_mode_override_t {
+  ON,
+  AUTO,
+  OFF,
+} auto_mode_override_t;
+
 typedef enum switch_pos_t {
   SW_ON,
   SW_AUTO,
@@ -84,6 +90,7 @@ extern struct device {
   union {
     struct out {
       switch_pos_t sw;
+      auto_mode_override_t auto_override;
       bool         on;
     } out;
     struct in {

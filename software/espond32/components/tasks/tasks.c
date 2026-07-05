@@ -3,6 +3,34 @@
 #include "freertos/projdefs.h"
 #include "models.h"
 #include "portmacro.h"
+#include "date_and_time.h"
+
+//Helpers
+
+esp_err_t handle_auto_output(device_t *dev) {
+  esp_err_t err_check;
+  io_mode_t control;
+  struct tm now = get_local_time();
+  switch (dev->u.out.auto_override) {
+    case ON:
+      control.state = GPIO_ON;
+      control.value = 1;
+      err_check = dev->ops->operate(dev, &control);
+      break;
+    case OFF:
+      control.state = GPIO_OFF; 
+      control.value = 0;
+      err_check = dev->ops->operate(dev, &control);
+      break;
+    case AUTO:
+      
+      break;
+  }
+
+  return err_check;
+}
+
+//Tasks
 
 void task_check_io(void *args) {
   //Iterate over all devices
@@ -11,7 +39,6 @@ void task_check_io(void *args) {
   while (1) {
     for (int i = 0; i < NUM_DEVICES; ++i) {
       device_t *self = &g_devices[i];
-
       err_check = self->ops->check(self);
       if (err_check != ESP_OK) {
         // Handle Error
@@ -61,12 +88,7 @@ void task_operate(void *args) {
               err_check = self->ops->operate(self, &control);
               break;
             case SW_AUTO:
-              //Get current time
-
-              //Compare to CFG
-              
-              //Act Accordingly
-              
+              handle_auto_output(self);
               break;
           }
           break;

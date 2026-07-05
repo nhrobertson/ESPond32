@@ -50,6 +50,8 @@ static void start_sntp(void) {
   if (s_sntp_running) return;
   esp_sntp_config_t config = ESP_NETIF_SNTP_DEFAULT_CONFIG("pool.ntp.org");
   esp_netif_sntp_init(&config); //Auto Syncs Time
+  setenv("TZ", "EST5EDT,M3.2.0,M11.1.0", 1);
+  tzset();
   s_sntp_running = true;
 }
 
