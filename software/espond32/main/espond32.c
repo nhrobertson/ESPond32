@@ -30,6 +30,8 @@
 #include "models.h"
 #include "nvs_flash.h"
 #include "filesystem.h"
+#include "tasks.h"
+#include "network.h"
 
 static const char *TAG = "espond32";
 
@@ -37,8 +39,21 @@ void app_main(void)
 {
     esp_err_t err;
     err = nvs_flash_init();
-    devices_init();
+
+    cfg_buff_mutex = xSemaphoreCreateMutex();
+    cfg_change_mutex = xSemaphoreCreateMutex();
+
+    g_events = xEventGroupCreate();
 
     cfg_load(&g_espond_cfg);
     
+    devices_init();
+    
+    //Core 1
+    xTaskCreatePinnedToCore(task_check_io, "io", 4096, NULL, 6, NULL, 1);
+    xTaskCreatePinnedToCore(task_operate, "operate", 4096, NULL, 7, &operate_handle, 1);
+    
+    //Core 0
+    xTaskCreatePinnedToCore(task_check_cfg, "cfg", 4096, NULL, 4, NULL, 0);
+    xTaskCreatePinnedToCore(task_net_manager, "net", 8196, NULL, 5, NULL, 0);
 }

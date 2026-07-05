@@ -126,7 +126,7 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t event_i
 }
 
 
-static void task_net_manager(void *arg) {
+void task_net_manager(void *arg) {
   s_net_events = xEventGroupCreate();
 
   //Begin network initalization

@@ -60,5 +60,6 @@ void cfg_load(espond_cfg_t *cfg) {
   ret = nvs_load_espond_cfg(cfg);
   if (ret != ESP_OK) {
     *cfg = cfg_default();
+    nvs_store_espond_cfg(cfg);
   }
 }

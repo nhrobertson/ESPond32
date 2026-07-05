@@ -7,6 +7,9 @@ volatile espond_cfg_t g_espond_cfg = {0};
 espond_cfg_t g_buff_cfg   = {0};
 
 EventGroupHandle_t g_events;
+SemaphoreHandle_t cfg_buff_mutex;
+SemaphoreHandle_t cfg_change_mutex;
+TaskHandle_t operate_handle;
 
 // "HH:MM" -> hour/min, with range checking. Returns false if malformed.
 static bool parse_hhmm(const cJSON *item, uint8_t *h, uint8_t *m) {

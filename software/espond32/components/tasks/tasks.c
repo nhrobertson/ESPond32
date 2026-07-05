@@ -22,7 +22,7 @@ void task_check_io(void *args) {
   }
 }
 
-void tasks_check_cfg(void *args) {
+void task_check_cfg(void *args) {
  while (1) {
    EventBits_t bits = xEventGroupWaitBits(g_events, CFG_CHANGED_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
    if (bits & CFG_CHANGED_BIT) {
@@ -33,7 +33,6 @@ void tasks_check_cfg(void *args) {
      g_espond_cfg = g_buff_cfg;
      xSemaphoreGive(cfg_change_mutex);
      xSemaphoreGive(cfg_buff_mutex);
-
    }
  } 
 }

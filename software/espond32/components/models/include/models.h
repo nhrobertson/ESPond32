@@ -134,12 +134,11 @@ typedef struct espond_cfg_t {
 } espond_cfg_t;
 
 //RTOS variables
-
-
 #define CFG_CHANGED_BIT BIT0
 extern EventGroupHandle_t g_events;
 extern SemaphoreHandle_t cfg_buff_mutex;
 extern SemaphoreHandle_t cfg_change_mutex;
+extern TaskHandle_t operate_handle;
 
 
 extern volatile espond_cfg_t g_espond_cfg;
