@@ -55,7 +55,7 @@ DEVICE_RET get_device(char* name) {
   device_t *device = NULL;
   DEVICE_RET ret = { .device = device, .ret_status = ret_status };
   for (int i = 0; i < NUM_DEVICES; ++i) {
-    if (strcmp(g_devices[i].name, name)) { 
+    if (strcmp(g_devices[i].name, name) == 0) { 
       ret.device = &g_devices[i];
       ret.ret_status = ESP_OK;
       break;

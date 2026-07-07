@@ -23,7 +23,7 @@ dev_op_state_t evaluate_device_schedule(device_t *dev) {
   for (int i = 0; i < NUM_OUTPUTS; ++i) {
     volatile char* comp_name = g_espond_cfg.outputs[i].name;
     
-    if (strcmp(dev->name, (const char*)comp_name)) {
+    if (strcmp(dev->name, (const char*)comp_name) == 0) {
       xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
       schedule = g_espond_cfg.outputs[i];
       xSemaphoreGive(cfg_change_mutex);
