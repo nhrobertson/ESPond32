@@ -1,10 +1,35 @@
 #include "io.h"
+#include "config.h"
 #include "driver/gpio.h"
 #include "esp_err.h"
 #include "hal/gpio_types.h"
 #include "models.h"
 
 static const char *TAG = "espond32 - IO";
+
+static void debounce_input(debounce_t *db, int raw) {
+  if (!db->init) {
+    db->canditate = db->stable = raw;
+    db->count = DEBOUNCE_SAMPLES;
+    db->init = true;
+  }
+
+  if (raw != db->canditate) {
+    db->canditate = raw;
+    db->count = 1;
+  } 
+  else if (db->count < DEBOUNCE_SAMPLES) {
+    if (++db->count == DEBOUNCE_SAMPLES) {
+      db->stable = raw;
+    }
+  }
+}
+
+esp_err_t setup_reset_button() {
+  esp_err_t ret;
+  ret = configure_gpio(RESET_BTN_GPIO, GPIO_MODE_INPUT, GPIO_INTR_ANYEDGE);
+  return ret;
+}
 
 esp_err_t configure_gpio(gpio_num_t GPIO_NUM, gpio_mode_t GPIO_MODE, gpio_int_type_t INTR_TYPE)
 {
@@ -146,11 +171,14 @@ esp_err_t output_check(device_t *device) {
   ret = read_gpio(sw_b, &sw_b_state);
   if (ret != ESP_OK) { return ret; }
 
+  debounce_input(&device->u.out.sw_a_db, sw_a_state.state);
+  debounce_input(&device->u.out.sw_b_db, sw_b_state.state);
+
   //Impossible for the Switch A and Switch B to be on at the same time
-  if (sw_a_state.state) {
+  if (device->u.out.sw_a_db.stable) {
     //On
     device->u.out.sw = SW_ON;
-  } else if (sw_b_state.state) {
+  } else if (device->u.out.sw_b_db.stable) {
     //Off
     device->u.out.sw = SW_OFF;
   } else {
@@ -171,8 +199,10 @@ esp_err_t input_check(device_t *device) {
 
   ret = read_gpio(float_sens, &float_sens_state);
   if (ret != ESP_OK) { return ret; }
+  
+  debounce_input(&device->u.in.float_sens_db, float_sens_state.state);
 
-  if (float_sens_state.state) {
+  if (device->u.in.float_sens_db.stable) {
     device->u.in.active = true;
   } else {
     device->u.in.active = false;

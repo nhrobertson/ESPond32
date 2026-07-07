@@ -5,6 +5,7 @@
 
 volatile espond_cfg_t g_espond_cfg = {0};
 espond_cfg_t g_buff_cfg   = {0};
+bool lockout = 0;
 
 EventGroupHandle_t g_events;
 SemaphoreHandle_t cfg_buff_mutex;

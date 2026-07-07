@@ -2,16 +2,58 @@
 #include "config.h"
 #include "device.h"
 #include "esp_err.h"
+#include "filesystem.h"
+#include "float.h"
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
+#include "led.h"
 #include "models.h"
 #include "portmacro.h"
 #include "date_and_time.h"
 
-//Helpers
+void task_check_for_reset(void *args) {
+  int level = 0;
+  int press_start = 0;
+  int64_t now;
+  while (1) {
+    level = gpio_get_level(RESET_BTN_GPIO);
+    now = esp_timer_get_time();
 
+    if (level == 0) {
+      if (press_start == 0) press_start = now;
+      else if (now - press_start >= 5LL*1000*100) {
+        nvs_clear_lockout();
+        lockout = 0;
+        esp_restart(); 
+      }
+    } else {
+      press_start = 0;
+    }
+  }
+  vTaskDelay(pdMS_TO_TICKS(10));
+}
 
-//Tasks
+void task_check_leak(void *args) {
+  bool leak = check_leak_check();
+  if (leak) {
+    //Disable Valve
+    for (int i = 0; i < NUM_DEVICES; ++i) {
+      device_t *self = &g_devices[i];
+      switch (self->type) { 
+        case DEV_PUMP:
+        case DEV_VALVE:
+          self->u.out.auto_override = OVR_OFF;
+          break;
+        default:
+          break;
+      }
+    }
+    lockout = true;
+    nvs_set_lockout(1);
+  }
+  check_fills_per_day();
+  vTaskDelay(pdMS_TO_TICKS(10));
+}
 
 void task_check_io(void *args) {
   //Iterate over all devices
@@ -23,10 +65,9 @@ void task_check_io(void *args) {
       err_check = self->ops->check(self);
       if (err_check != ESP_OK) {
         // Handle Error
-      }
-    
+      } 
     }
-    vTaskDelay(pdMS_TO_TICKS(50));
+    vTaskDelay(pdMS_TO_TICKS(10));
   }
 }
 
@@ -51,6 +92,10 @@ void task_evaluate_cfg(void *args) {
   while (1) {
     for (int i = 0; i < NUM_DEVICES; ++i) {
       device_t *self = &g_devices[i];
+
+      if (lockout) {
+        break;
+      }
       
       switch (self->type) {
         case DEV_PUMP:
@@ -67,12 +112,24 @@ void task_evaluate_cfg(void *args) {
           
           break;
         case DEV_FLOAT:
+          bool check;
+          check = eval_float_state(self);
+          if (check) {
+            DEVICE_RET dev_ret = get_device("valve1");
+
+            if ((dev_ret.ret_status != ESP_OK || 
+                dev_ret.device->type != DEV_VALVE) && 
+                dev_ret.device->u.out.auto_override == OVR_OFF) { break; }
+
+            device_t *dev = dev_ret.device;
+            dev->u.out.auto_override = OVR_ON;
+          }
 
           break;
       }
         
     }
-    vTaskDelay(pdMS_TO_TICKS(15000));
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
 
@@ -120,12 +177,10 @@ void task_operate(void *args) {
           }
           break;
         case DEV_FLOAT:
-          io_mode_t state;
-          err_check = self->ops->operate(self, &state);
-          if (state.value > 0) {
-            //Recieved Signal, check / start timer
-            
-            //If timer > FLOAT_TIMER_TIME, enable valve
+          if (self->u.in.active) {
+            self->led.ops->set_color(self, PIX_BLUE);
+          } else {
+            self->led.ops->set_color(self, PIX_BLACK);
           }
           break;
       }

@@ -81,7 +81,8 @@ INIT_RET devices_init() {
 
     g_devices[i].led.ops->set_color(&g_devices[i], PIX_BLACK);
   }
-
   
+  ret.ret_status = setup_reset_button();
+
   return ret;
 }

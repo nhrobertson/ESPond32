@@ -51,6 +51,13 @@ typedef struct io_mode_t {
   float value;
 } io_mode_t;
 
+typedef struct debounce_t {
+  int canditate;
+  uint8_t count;
+  int stable;
+  bool init;
+} debounce_t;
+
 typedef struct device device_t;
 
 typedef struct device_ops_t {
@@ -66,6 +73,18 @@ typedef enum dev_op_state_t {
   DEV_STATE_AUTO,
   DEV_STATE_ERR
 } dev_op_state_t;
+
+typedef enum fill_state_t {
+  FILL_IDLE,
+  FILL_ARMING,
+  FILL_FILLING,
+  FILL_OVERFLOW,
+} fill_state_t;
+
+typedef struct leak_check_t {
+  uint8_t d;
+  uint8_t count;
+} leak_check_t;
 
 //LED Type Definitions
 typedef struct pix_t {
@@ -96,12 +115,16 @@ extern struct device {
   const void *pins;
   union {
     struct out {
+      debounce_t sw_a_db;
+      debounce_t sw_b_db;
       switch_pos_t sw;
       auto_mode_override_t auto_override;
       dev_op_state_t state;
       bool         on;
     } out;
     struct in {
+      debounce_t float_sens_db;
+      fill_state_t state;
       bool         active;
     } in;
   } u;
@@ -158,6 +181,7 @@ extern TaskHandle_t operate_handle;
 
 extern volatile espond_cfg_t g_espond_cfg;
 extern espond_cfg_t g_buff_cfg;
+extern bool lockout;
 
 esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out);
 

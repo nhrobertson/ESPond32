@@ -63,3 +63,31 @@ void cfg_load(espond_cfg_t *cfg) {
     nvs_store_espond_cfg(cfg);
   }
 }
+
+esp_err_t nvs_clear_lockout() {
+  nvs_handle_t handle;
+  esp_err_t err = nvs_open("leak", NVS_READWRITE, &handle);
+  if (err != ESP_OK) {
+    //TODO ERR HANDLING
+  }
+
+  nvs_set_u8(handle, "lockout", 0);
+
+  err = nvs_commit(handle);
+  nvs_close(handle);
+  return err;
+}
+
+esp_err_t nvs_set_lockout(uint8_t lockout) {
+  nvs_handle_t handle;
+  esp_err_t err = nvs_open("leak", NVS_READWRITE, &handle);
+  if (err != ESP_OK) {
+    //TODO ERR HANDLING
+  }
+
+  nvs_set_u8(handle, "lockout", lockout);
+
+  err = nvs_commit(handle);
+  nvs_close(handle);
+  return err;
+}

@@ -11,8 +11,9 @@
 #define NUM_LIGHT         1
 #define NUM_FLOAT         1
 
-#define NUM_LEDS          NUM_DEVICES + 1 //1 - Pump 1, 2 - Pump 2, 3 - Valve 1, 4 - Float Sensor
+#define NUM_LEDS          NUM_DEVICES + 2 //1 - Pump 1, 2 - Pump 2, 3 - Valve 1, 4 - Float Sensor
 
+#define DEBOUNCE_SAMPLES      5
 //GPIO Definitions
 #define PUMP1_SSR_GPIO        GPIO_NUM_4
 #define PUMP1_SW_A_GPIO       GPIO_NUM_5
@@ -37,10 +38,12 @@
 #define FLOAT1_SENS_GPIO      GPIO_NUM_9
 #define FLOAT1_LED_PIX        3
 
-#define SYS_LED_PIX           5
 
 #define LED_DATA_GPIO         GPIO_NUM_10
 
+#define RESET_BTN_GPIO        GPIO_NUM_20
+
+#define SYS_LED_PIX           6
 
 
 #endif //CONFIG_H

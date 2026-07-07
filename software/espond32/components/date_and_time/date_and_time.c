@@ -13,6 +13,7 @@ struct tm get_local_time(void)
   return timeinfo;
 }
 
+
 dev_op_state_t evaluate_device_schedule(device_t *dev) {
   dev_op_state_t state = DEV_STATE_OFF;
   struct tm time = get_local_time();

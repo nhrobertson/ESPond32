@@ -20,6 +20,8 @@ esp_err_t io_setup(device_t *device);
 esp_err_t io_operate(device_t *device, io_mode_t mode);
 esp_err_t io_disable(device_t *device);
 
+esp_err_t setup_reset_button();
+
 extern const device_ops_t o_ops;
 extern const device_ops_t i_ops;
 
