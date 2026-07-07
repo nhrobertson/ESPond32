@@ -11,12 +11,51 @@ device_t g_devices[NUM_DEVICES] = {
   { .name = "float1", .type = DEV_FLOAT, .ops = &i_ops, .pins = &INPUT_PINS }
 };
 
+dev_op_state_t resolve_device_state(device_t *dev) {
+  dev_op_state_t state = DEV_STATE_ERR;
+  switch (dev->type) {
+    case DEV_PUMP:
+    case DEV_VALVE:
+    case DEV_LIGHT:
+      switch (dev->u.out.sw) {
+        case SW_ON:
+          state = DEV_STATE_ON;
+          return state;
+        case SW_OFF:
+          state = DEV_STATE_OFF;
+          return state;
+        case SW_AUTO:
+          state = DEV_STATE_AUTO;
+          break;
+      }
+
+      switch (dev->u.out.auto_override) {
+        case OVR_ON:
+          state = DEV_STATE_ON;
+          return state;
+        case OVR_OFF:
+          state = DEV_STATE_OFF;
+          return state;
+        case OVR_AUTO:
+          state = DEV_STATE_AUTO;
+          break;
+      }
+      
+      //Any other forceful state stuff
+
+      return state;
+    case DEV_FLOAT:
+      return state;
+  }
+  return state;
+}
+
 DEVICE_RET get_device(char* name) {
   esp_err_t ret_status = ESP_ERR_INVALID_ARG;
   device_t *device = NULL;
   DEVICE_RET ret = { .device = device, .ret_status = ret_status };
   for (int i = 0; i < NUM_DEVICES; ++i) {
-    if (g_devices[i].name == name) { 
+    if (strcmp(g_devices[i].name, name)) { 
       ret.device = &g_devices[i];
       ret.ret_status = ESP_OK;
       break;

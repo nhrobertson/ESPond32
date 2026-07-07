@@ -1,4 +1,7 @@
 #include "tasks.h"
+#include "config.h"
+#include "device.h"
+#include "esp_err.h"
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
 #include "models.h"
@@ -7,28 +10,6 @@
 
 //Helpers
 
-esp_err_t handle_auto_output(device_t *dev) {
-  esp_err_t err_check;
-  io_mode_t control;
-  struct tm now = get_local_time();
-  switch (dev->u.out.auto_override) {
-    case ON:
-      control.state = GPIO_ON;
-      control.value = 1;
-      err_check = dev->ops->operate(dev, &control);
-      break;
-    case OFF:
-      control.state = GPIO_OFF; 
-      control.value = 0;
-      err_check = dev->ops->operate(dev, &control);
-      break;
-    case AUTO:
-      
-      break;
-  }
-
-  return err_check;
-}
 
 //Tasks
 
@@ -64,6 +45,37 @@ void task_check_cfg(void *args) {
  } 
 }
 
+void task_evaluate_cfg(void *args) {
+  esp_err_t err_check;
+
+  while (1) {
+    for (int i = 0; i < NUM_DEVICES; ++i) {
+      device_t *self = &g_devices[i];
+      
+      switch (self->type) {
+        case DEV_PUMP:
+        case DEV_VALVE:
+        case DEV_LIGHT:
+
+          dev_op_state_t state = resolve_device_state(self);
+          
+          if (state == DEV_STATE_AUTO) {
+            state = evaluate_device_schedule(self);
+          }
+          
+          self->u.out.state = state;
+          
+          break;
+        case DEV_FLOAT:
+
+          break;
+      }
+        
+    }
+    vTaskDelay(pdMS_TO_TICKS(15000));
+  }
+}
+
 void task_operate(void *args) {
   esp_err_t err_check;
   //Iterate over all device
@@ -75,20 +87,35 @@ void task_operate(void *args) {
         case DEV_PUMP:
         case DEV_VALVE:
         case DEV_LIGHT:
-          switch (self->u.out.sw) {
+          switch (self->u.out.state) {
             io_mode_t control;
-            case SW_ON:
+            case DEV_STATE_ON:
+              if (self->u.out.on) { break; }
               control.state = GPIO_ON;
               control.value = 1;
               err_check = self->ops->operate(self, &control);
+              if (err_check != ESP_OK) {
+                //MAJOR ERR
+                break;
+              }
+              self->u.out.on = true;
+              self->led.ops->set_color(self, PIX_GREEN);
               break;
-            case SW_OFF:
+            case DEV_STATE_OFF:
+              if (!self->u.out.on) { break; }
               control.state = GPIO_OFF; 
               control.value = 0;
               err_check = self->ops->operate(self, &control);
+              if (err_check != ESP_OK) {
+                //MAJOR ERR
+                break;
+              }
+              self->u.out.on = false;
+              self->led.ops->set_color(self, PIX_BLACK);
               break;
-            case SW_AUTO:
-              handle_auto_output(self);
+            default:
+              //Device state dev_op_state_t should only ever be on/off
+              err_check = ESP_ERR_INVALID_ARG;
               break;
           }
           break;

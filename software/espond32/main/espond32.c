@@ -51,6 +51,7 @@ void app_main(void)
     
     //Core 1
     xTaskCreatePinnedToCore(task_check_io, "io", 4096, NULL, 6, NULL, 1);
+    xTaskCreatePinnedToCore(task_evaluate_cfg, "eval", 4096, NULL, 8, NULL, 1);
     xTaskCreatePinnedToCore(task_operate, "operate", 4096, NULL, 7, &operate_handle, 1);
     
     //Core 0

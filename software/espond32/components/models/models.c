@@ -66,7 +66,7 @@ esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out) {
       dst->has_schedule = false;
     } else if (
         parse_hhmm(on, &dst->on_hour, &dst->on_min) &&
-        parse_hhmm(off, &dst->off_hour, &dst->off_hour)
+        parse_hhmm(off, &dst->off_hour, &dst->off_min)
         ) {
       dst->has_schedule = true;
     } else {
@@ -92,7 +92,7 @@ esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out) {
   if (!cJSON_IsNumber(thr) || !cJSON_IsNumber(ovf) || !cJSON_IsNumber(mfd)) goto cleanup;
   cfg.float_sens.threshold_min = thr->valueint;
   cfg.float_sens.overflow_min = ovf->valueint;
-  cfg.float_sens.max_fills_per_day = ovf->valueint;
+  cfg.float_sens.max_fills_per_day = mfd->valueint;
   
   *out = cfg;
   ret = ESP_OK;

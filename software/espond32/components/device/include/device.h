@@ -50,6 +50,8 @@ static const input_pins_t INPUT_PINS = {
 extern device_t g_devices[NUM_DEVICES];
 
 //Functions
+dev_op_state_t resolve_device_state(device_t *dev);
+
 DEVICE_RET get_device(char* name);
 
 INIT_RET devices_init(void);

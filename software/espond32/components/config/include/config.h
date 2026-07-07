@@ -11,7 +11,7 @@
 #define NUM_LIGHT         1
 #define NUM_FLOAT         1
 
-#define NUM_LEDS          4 //1 - Pump 1, 2 - Pump 2, 3 - Valve 1, 4 - Float Sensor
+#define NUM_LEDS          NUM_DEVICES + 1 //1 - Pump 1, 2 - Pump 2, 3 - Valve 1, 4 - Float Sensor
 
 //GPIO Definitions
 #define PUMP1_SSR_GPIO        GPIO_NUM_4

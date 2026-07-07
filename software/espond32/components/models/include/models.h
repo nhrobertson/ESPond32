@@ -29,9 +29,9 @@ typedef struct input_pins_t {
 } input_pins_t;
 
 typedef enum auto_mode_override_t {
-  ON,
-  AUTO,
-  OFF,
+  OVR_ON,
+  OVR_AUTO,
+  OVR_OFF,
 } auto_mode_override_t;
 
 typedef enum switch_pos_t {
@@ -59,6 +59,13 @@ typedef struct device_ops_t {
   esp_err_t (*check)   (device_t *dev);
   esp_err_t (*disable) (device_t *dev);
 } device_ops_t;
+
+typedef enum dev_op_state_t {
+  DEV_STATE_ON,
+  DEV_STATE_OFF,
+  DEV_STATE_AUTO,
+  DEV_STATE_ERR
+} dev_op_state_t;
 
 //LED Type Definitions
 typedef struct pix_t {
@@ -91,6 +98,7 @@ extern struct device {
     struct out {
       switch_pos_t sw;
       auto_mode_override_t auto_override;
+      dev_op_state_t state;
       bool         on;
     } out;
     struct in {
