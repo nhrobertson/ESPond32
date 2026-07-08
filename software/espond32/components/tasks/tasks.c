@@ -21,6 +21,7 @@ void task_set_sys_light(void *args) {
 #if DEBUG_INDEPTH_LOG
     ESP_LOGD(TAG, "task_set_sys_light -");
 #endif
+    debug_pin_set(DEBUG_GPIO_SYS_LED, 1);
     xSemaphoreTake(lockout_change_mutex, portMAX_DELAY);
     bool locked_out = lockout;
     xSemaphoreGive(lockout_change_mutex);
@@ -42,6 +43,7 @@ void task_set_sys_light(void *args) {
         set_sys_led_color(PIX_BLACK);
       }
     }
+    debug_pin_set(DEBUG_GPIO_SYS_LED, 0);
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
@@ -54,6 +56,7 @@ void task_listen_for_task_event(void *args) {
                     &requests,
                     pdMS_TO_TICKS(1000)
         );
+    debug_pin_set(DEBUG_GPIO_TASKS, 1);
 #if DEBUG_INDEPTH_LOG
     ESP_LOGD(TAG, "task_listen_for_task_event -");
 #endif
@@ -61,6 +64,7 @@ void task_listen_for_task_event(void *args) {
       ESP_LOGI(TAG, "leak lockout cleared by request");
       clear_leak();
     }
+    debug_pin_set(DEBUG_GPIO_TASKS, 0);
   }
 }
 
@@ -156,6 +160,7 @@ void task_check_io(void *args) {
 void task_check_cfg(void *args) {
  while (1) {
    EventBits_t bits = xEventGroupWaitBits(g_events, CFG_CHANGED_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
+   debug_pin_set(DEBUG_GPIO_CFG, 1);
 #if DEBUG_INDEPTH_LOG
     ESP_LOGD(TAG, "task_check_cfg -");
 #endif
@@ -168,7 +173,8 @@ void task_check_cfg(void *args) {
      xSemaphoreGive(cfg_change_mutex);
      xSemaphoreGive(cfg_buff_mutex);
    }
- } 
+   debug_pin_set(DEBUG_GPIO_CFG, 0);
+ }
 }
 
 void task_evaluate_cfg(void *args) {

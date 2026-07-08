@@ -9,7 +9,8 @@
 static inline void debug_gpio_init(void) {
   const gpio_num_t pins[] = {
     DEBUG_GPIO_OPERATE, DEBUG_GPIO_EVAL, DEBUG_GPIO_IO,
-    DEBUG_GPIO_LEAK, DEBUG_GPIO_RESET, DEBUG_GPIO_NET
+    DEBUG_GPIO_LEAK, DEBUG_GPIO_RESET, DEBUG_GPIO_NET,
+    DEBUG_GPIO_CFG, DEBUG_GPIO_TASKS, DEBUG_GPIO_SYS_LED
   };
   for (size_t i = 0; i < sizeof(pins) / sizeof(pins[0]); ++i) {
     gpio_reset_pin(pins[i]);

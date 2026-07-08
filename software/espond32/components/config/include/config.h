@@ -55,6 +55,9 @@
 #define DEBUG_GPIO_LEAK       GPIO_NUM_38   //task_check_leak   (Core 1, 10ms)
 #define DEBUG_GPIO_RESET      GPIO_NUM_47   //task_check_for_reset (Core 1, 50ms)
 #define DEBUG_GPIO_NET        GPIO_NUM_48   //task_net_manager  (Core 0, event-driven)
+#define DEBUG_GPIO_CFG        GPIO_NUM_35   //task_check_cfg    (Core 0, event-driven)
+#define DEBUG_GPIO_TASKS      GPIO_NUM_36   //task_listen_for_task_event (Core 1, event-driven)
+#define DEBUG_GPIO_SYS_LED    GPIO_NUM_37   //task_set_sys_light (Core 1, 1000ms)
 
 
 #endif //CONFIG_H

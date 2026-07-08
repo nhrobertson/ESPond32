@@ -77,7 +77,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
   if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START) {
     esp_wifi_connect();
   } else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
-    ESP_LOGW(TAG, "wifi disconnected");
+    wifi_event_sta_disconnected_t *disconn = (wifi_event_sta_disconnected_t *)data;
+    ESP_LOGW(TAG, "wifi disconnected, reason: %d", disconn->reason);
     xEventGroupSetBits(s_net_events, DISCONNECT_BIT);
   } else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
     ESP_LOGI(TAG, "wifi connected, got IP");
