@@ -18,18 +18,18 @@ dev_op_state_t evaluate_device_schedule(device_t *dev) {
   dev_op_state_t state = DEV_STATE_OFF;
   struct tm time = get_local_time();
   
-  output_schedule_t schedule;
+  output_schedule_t schedule = {0};
   //Grab Device
+  xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
   for (int i = 0; i < NUM_OUTPUTS; ++i) {
     volatile char* comp_name = g_espond_cfg.outputs[i].name;
-    
+
     if (strcmp(dev->name, (const char*)comp_name) == 0) {
-      xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
       schedule = g_espond_cfg.outputs[i];
-      xSemaphoreGive(cfg_change_mutex);
       break;
     }
   }
+  xSemaphoreGive(cfg_change_mutex);
   
   int now_min = time.tm_hour * 60 + time.tm_min;
   int on_min = schedule.on_hour * 60 + schedule.on_min;

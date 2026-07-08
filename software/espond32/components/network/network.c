@@ -5,8 +5,12 @@
 #include "mqtt_client.h"
 #include "portmacro.h"
 #include "models.h"
+#include "esp_log.h"
+#include "debug_gpio.h"
 #include <stdio.h>
 #include <string.h>
+
+static const char *TAG = "espond32 - network";
 
 EventGroupHandle_t s_net_events;
 static esp_mqtt_client_handle_t s_mqtt_client;
@@ -113,11 +117,11 @@ static void handle_command_msg(esp_mqtt_event_handle_t event) {
   cmd[event->data_len] = '\0';
 
   if (strcmp(cmd, "clear_leak_lockout") == 0) {
-    xTaskNotify(operate_handle, REQ_CLEAR_LEAK, eSetBits);
+    xTaskNotify(task_handle, REQ_CLEAR_LEAK, eSetBits);
   } else if (strcmp(cmd, "reboot") == 0) {
     free(cmd);
     esp_restart();
-  } else if (strcmp(cmd, "request_satus") == 0) {
+  } else if (strcmp(cmd, "request_status") == 0) {
     xEventGroupSetBits(s_net_events, STATUS_CHANGE_BIT);
   } else {
 
@@ -156,17 +160,17 @@ static void publish_status(esp_mqtt_client_handle_t client) {
       );
 
 
-  status_json_builder_t devices[NUM_DEVICES];
+  status_json_builder_t devices[NUM_DEVICES] = {0};
   for (int i = 0; i < NUM_DEVICES; ++i) {
     switch (g_devices[i].type) {
       case DEV_VALVE:
       case DEV_PUMP:
       case DEV_LIGHT:
-        strcpy(devices[i].name, g_devices[i].name);
+        strlcpy(devices[i].name, g_devices[i].name, sizeof(devices[i].name));
         devices[i].state = g_devices[i].u.out.on;
         break;
       case DEV_FLOAT:
-        strcpy(devices[i].name, g_devices[i].name);
+        strlcpy(devices[i].name, g_devices[i].name, sizeof(devices[i].name));
         devices[i].state = g_devices[i].u.in.active;
         break;
     }
@@ -208,7 +212,7 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t event_i
       }
       break;
     case MQTT_EVENT_ERROR:
-      //TODO: Handle Error such as disconnect
+      ESP_LOGE(TAG, "MQTT error, type=%d", event->error_handle->error_type);
       break;
     default:
       break;
@@ -217,8 +221,6 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t event_i
 
 
 void task_net_manager(void *arg) {
-  s_net_events = xEventGroupCreate();
-
   //Begin network initalization
   esp_netif_init();
   esp_event_loop_create_default();
@@ -238,7 +240,9 @@ void task_net_manager(void *arg) {
   bool services_up = false;
   int backoff_ms = 1000;
   while (1) {
+    debug_pin_set(DEBUG_GPIO_NET, 0);
     EventBits_t bits = xEventGroupWaitBits(s_net_events, GOT_IP_BIT | DISCONNECT_BIT | STATUS_CHANGE_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
+    debug_pin_set(DEBUG_GPIO_NET, 1);
 
     if (bits & GOT_IP_BIT) {
       backoff_ms = 1000;

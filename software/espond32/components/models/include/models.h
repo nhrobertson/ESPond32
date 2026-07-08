@@ -135,11 +135,11 @@ extern struct device {
 //Network Helpers
 typedef struct status_json_builder_t {
   int state;
-  char* name;
+  char name[16];
 } status_json_builder_t;
 
 typedef struct override_json_t {
-  char* name;
+  char name[16];
   auto_mode_override_t override;
 } override_json_t;
 
@@ -191,7 +191,10 @@ extern EventGroupHandle_t g_events;
 extern SemaphoreHandle_t cfg_buff_mutex;
 extern SemaphoreHandle_t cfg_change_mutex;
 extern SemaphoreHandle_t ovr_change_mutex;
+extern SemaphoreHandle_t lockout_change_mutex;
+extern SemaphoreHandle_t leak_check_mutex;
 extern TaskHandle_t operate_handle;
+extern TaskHandle_t task_handle;
 
 
 extern volatile espond_cfg_t g_espond_cfg;

@@ -1,4 +1,8 @@
 #include "filesystem.h"
+#include "nvs.h"
+#include "esp_log.h"
+
+static const char *TAG = "espond32 - filesystem";
 
 espond_cfg_t cfg_default() {
   espond_cfg_t cfg = {
@@ -8,7 +12,7 @@ espond_cfg_t cfg_default() {
       { .name = "pump1", .on_hour = 12, .on_min = 0, .off_hour = 12, .off_min = 1, .days_mask = 0b1111111 }, 
       { .name = "pump2", .on_hour = 12, .on_min = 0, .off_hour = 12, .off_min = 1, .days_mask = 0b1111111 }, 
       { .name = "valve1", .on_hour = 12, .on_min = 0, .off_hour = 12, .off_min = 1, .days_mask = 0b1111111 }, 
-      { .name = "lights1", .on_hour = 12, .on_min = 0, .off_hour = 12, .off_min = 1, .days_mask = 0b1111111 }, 
+      { .name = "light1", .on_hour = 12, .on_min = 0, .off_hour = 12, .off_min = 1, .days_mask = 0b1111111 }, 
     }, 
     .float_sens = {
       .threshold_min = 5,
@@ -68,7 +72,7 @@ esp_err_t nvs_clear_lockout() {
   nvs_handle_t handle;
   esp_err_t err = nvs_open("leak", NVS_READWRITE, &handle);
   if (err != ESP_OK) {
-    //TODO ERR HANDLING
+    ESP_LOGE(TAG, "nvs_clear_lockout: nvs_open failed: %s", esp_err_to_name(err));
   }
 
   nvs_set_u8(handle, "lockout", 0);
@@ -82,12 +86,34 @@ esp_err_t nvs_set_lockout(uint8_t lockout) {
   nvs_handle_t handle;
   esp_err_t err = nvs_open("leak", NVS_READWRITE, &handle);
   if (err != ESP_OK) {
-    //TODO ERR HANDLING
+    ESP_LOGE(TAG, "nvs_set_lockout: nvs_open failed: %s", esp_err_to_name(err));
   }
 
   nvs_set_u8(handle, "lockout", lockout);
 
   err = nvs_commit(handle);
+  nvs_close(handle);
+  return err;
+}
+
+esp_err_t nvs_load_lockout(bool *lockout) {
+ 
+  nvs_handle_t handle;
+  esp_err_t err = nvs_open("leak", NVS_READWRITE, &handle);
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "nvs_load_lockout: nvs_open failed: %s", esp_err_to_name(err));
+  }
+
+  uint8_t lockout_u8 = 0;
+
+  nvs_get_u8(handle, "lockout", &lockout_u8);
+
+  if (lockout_u8) {
+    *lockout = true;
+  } else {
+    *lockout = false;
+  }
+
   nvs_close(handle);
   return err;
 }

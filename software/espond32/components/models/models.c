@@ -12,7 +12,10 @@ EventGroupHandle_t g_events;
 SemaphoreHandle_t cfg_buff_mutex;
 SemaphoreHandle_t cfg_change_mutex;
 SemaphoreHandle_t ovr_change_mutex;
+SemaphoreHandle_t lockout_change_mutex;
+SemaphoreHandle_t leak_check_mutex;
 TaskHandle_t operate_handle;
+TaskHandle_t task_handle;
 
 // "HH:MM" -> hour/min, with range checking. Returns false if malformed.
 static bool parse_hhmm(const cJSON *item, uint8_t *h, uint8_t *m) {
@@ -32,7 +35,7 @@ static bool parse_hhmm(const cJSON *item, uint8_t *h, uint8_t *m) {
  *    { "name": "pump1", "on": "XX:XX", "off": "XX:XX", "days": [0-6,x7] },
  *    { "name": "pump2", "on": "XX:XX", "off": "XX:XX", "days": [0-6,x7] },
  *    { "name": "valve1", "on": "XX:XX", "off": "XX:XX", "days": [0-6,x7] },
- *    { "name": "lights1", "on": "XX:XX", "off": "XX:XX", "days": [0-6,x7] },
+ *    { "name": "light1", "on": "XX:XX", "off": "XX:XX", "days": [0-6,x7] },
  *    ],
  *    "float_sens": { "threshold_min": 10, "overflow_min": 30, "max_fills_per_day": 3}
  *  }
@@ -80,7 +83,7 @@ esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out) {
     if (!cJSON_IsArray(days)) goto cleanup;
     const cJSON *d = NULL;
     cJSON_ArrayForEach(d, days) {
-      if (!cJSON_IsNumber(d)) goto cleanup;
+      if (!cJSON_IsNumber(d) || d->valueint < 0 || d->valueint > 6) goto cleanup;
       dst->days_mask |= (uint8_t)(1 << d->valueint);
     }
 
@@ -121,11 +124,12 @@ esp_err_t parse_override_json(const char* json_str, override_json_t *out) {
     return err;
   }
 
-  override_json_t over = { .name = "", .override = OVR_AUTO };
+  override_json_t over = {0};
+  over.override = OVR_AUTO;
   
   const cJSON *name = cJSON_GetObjectItem(root, "name");
   if (!cJSON_IsString(name)) goto cleanup;
-  strcpy(over.name, name->string);
+  strlcpy(over.name, name->valuestring, sizeof(over.name));
 
   const cJSON *override = cJSON_GetObjectItem(root, "override");
   if (!cJSON_IsNumber(override)) goto cleanup;

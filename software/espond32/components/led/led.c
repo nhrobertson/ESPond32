@@ -1,11 +1,13 @@
 #include "led.h"
+#include "config.h"
+#include "esp_err.h"
 #include "led_strip.h"
 #include "models.h"
 
 
 const pix_t PIX_RED       = {.r = 255, .g = 0, .b = 0};
 const pix_t PIX_GREEN     = {.r = 0, .g = 255, .b = 0};
-const pix_t PIX_BLUE      = {.r = 0, .g = 255, .b = 0};
+const pix_t PIX_BLUE      = {.r = 0, .g = 0, .b = 255};
 const pix_t PIX_BLACK     = {.r = 0, .g = 0, .b = 0};
 const pix_t PIX_YELLOW    = {.r = 255, .g = 255, .b = 0};
 const pix_t PIX_AMBER     = {.r = 255, .g = 128, .b = 0};
@@ -44,6 +46,14 @@ LED_INIT_RET leds_init() {
   return ret;
 }
 
+esp_err_t set_sys_led_color(pix_t pixel) {
+  esp_err_t ret = ESP_ERR_INVALID_RESPONSE;
+
+  ret = led_strip_set_pixel(led_strip, SYS_LED_PIX, pixel.r, pixel.g, pixel.b);
+  ret = led_strip_refresh(led_strip);
+  return ret;
+}
+
 esp_err_t set_dev_led_color(device_t *device, pix_t pixel) {
   esp_err_t ret = ESP_ERR_INVALID_RESPONSE;
   switch (device->type) {
@@ -56,6 +66,7 @@ esp_err_t set_dev_led_color(device_t *device, pix_t pixel) {
       ret = led_strip_set_pixel(led_strip, ((const input_pins_t*)device->pins)->led_pixel, pixel.r, pixel.g, pixel.b);
       break;
   }
+  ret = led_strip_refresh(led_strip);
   return ret;
 }
 

@@ -27,5 +27,6 @@ void task_check_cfg(void *args);
 void task_evaluate_cfg(void *args);
 void task_operate(void *args);
 void task_listen_for_task_event(void *args);
+void task_set_sys_light(void *args);
 
 #endif //TASKS_H

@@ -21,10 +21,12 @@
 
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
+#include "freertos/idf_additions.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
 #include "led_strip.h"
+#include "nvs.h"
 #include "sdkconfig.h"
 #include "device.h"
 #include "models.h"
@@ -32,6 +34,7 @@
 #include "filesystem.h"
 #include "tasks.h"
 #include "network.h"
+#include "debug_gpio.h"
 
 static const char *TAG = "espond32";
 
@@ -39,15 +42,29 @@ void app_main(void)
 {
     esp_err_t err;
     err = nvs_flash_init();
+    if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      err = nvs_flash_init();
+    }
+    if (err != ESP_OK) {
+      ESP_LOGE(TAG, "nvs_flash_init failed: %s", esp_err_to_name(err));
+    }
 
     cfg_buff_mutex = xSemaphoreCreateMutex();
     cfg_change_mutex = xSemaphoreCreateMutex();
     ovr_change_mutex = xSemaphoreCreateMutex();
+    lockout_change_mutex = xSemaphoreCreateMutex();
 
     g_events = xEventGroupCreate();
+    s_net_events = xEventGroupCreate();
+
+    leak_check_mutex = xSemaphoreCreateMutex();
+
+    debug_gpio_init();
 
     cfg_load(&g_espond_cfg);
-    
+    nvs_load_lockout(&lockout);
+
     devices_init();
     
     //Core 1
@@ -56,7 +73,8 @@ void app_main(void)
     xTaskCreatePinnedToCore(task_operate, "operate", 4096, NULL, 7, &operate_handle, 1);
     xTaskCreatePinnedToCore(task_check_leak, "leak", 4096, NULL, 5, NULL, 1);
     xTaskCreatePinnedToCore(task_check_for_reset, "reset", 4096, NULL, 10, NULL, 1);
-    xTaskCreatePinnedToCore(task_listen_for_task_event, "tasks", 2048, NULL, 4, NULL, 1);
+    xTaskCreatePinnedToCore(task_listen_for_task_event, "tasks", 2048, NULL, 4, &task_handle, 1);
+    xTaskCreatePinnedToCore(task_set_sys_light, "sys_led", 2048, NULL, 3, NULL, 1);
     
     //Core 0
     xTaskCreatePinnedToCore(task_check_cfg, "cfg", 4096, NULL, 4, NULL, 0);

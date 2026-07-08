@@ -2,6 +2,9 @@
 #include "freertos/idf_additions.h"
 #include "led.h"
 #include "models.h"
+#include "esp_log.h"
+
+static const char *TAG = "espond32 - device";
 
 
 device_t g_devices[NUM_DEVICES] = {
@@ -34,15 +37,17 @@ dev_op_state_t resolve_device_state(device_t *dev) {
       switch (dev->u.out.auto_override) {
         case OVR_ON:
           state = DEV_STATE_ON;
+          xSemaphoreGive(ovr_change_mutex);
           return state;
         case OVR_OFF:
           state = DEV_STATE_OFF;
+          xSemaphoreGive(ovr_change_mutex);
           return state;
         case OVR_AUTO:
           state = DEV_STATE_AUTO;
+          xSemaphoreGive(ovr_change_mutex);
           break;
       }
-      xSemaphoreGive(ovr_change_mutex);
       
       //Any other forceful state stuff
 
@@ -81,7 +86,10 @@ INIT_RET devices_init() {
     g_devices[i].led.ops->set_color(&g_devices[i], PIX_GREEN);
     //Setup GPIO
     ret.ret_status = g_devices[i].ops->setup(&g_devices[i]);
-    
+    if (ret.ret_status != ESP_OK) {
+      ESP_LOGE(TAG, "setup failed for device '%s': %s", g_devices[i].name, esp_err_to_name(ret.ret_status));
+    }
+
     switch (g_devices[i].type) {
       case DEV_PUMP:
       case DEV_VALVE:

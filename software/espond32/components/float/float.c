@@ -1,4 +1,6 @@
 #include "float.h"
+#include "models.h"
+#include "portmacro.h"
 
 static int64_t float_deadline_us = 0;
 static leak_check_t leak_check = {0};
@@ -8,25 +10,38 @@ static inline int64_t minutes_us(int m) {
 }
 
 void clear_leak() {
+  xSemaphoreTake(leak_check_mutex, portMAX_DELAY);
   leak_check.count = 0;
+  xSemaphoreGive(leak_check_mutex);
+  xSemaphoreTake(lockout_change_mutex, portMAX_DELAY);
+  lockout = false;
+  xSemaphoreGive(lockout_change_mutex);
+  set_sys_led_color(PIX_BLACK);
+  nvs_clear_lockout();
 }
 
 bool check_leak_check() {
-  if (leak_check.count > g_espond_cfg.float_sens.max_fills_per_day) {
-    return true;
-  }
-  return false;
+  xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
+  int max_fills = g_espond_cfg.float_sens.max_fills_per_day;
+  xSemaphoreGive(cfg_change_mutex);
+
+  xSemaphoreTake(leak_check_mutex, portMAX_DELAY);
+  bool over = leak_check.count > max_fills;
+  xSemaphoreGive(leak_check_mutex);
+  return over;
 }
 
 bool check_fills_per_day() {
   struct tm now = get_local_time();
 
-  if (leak_check.d != now.tm_wday) {
+  xSemaphoreTake(leak_check_mutex, portMAX_DELAY);
+  bool same_day = leak_check.d == now.tm_wday;
+  if (!same_day) {
     leak_check.count = 0;
     leak_check.d = now.tm_wday;
-    return false;
   }
-  return true;
+  xSemaphoreGive(leak_check_mutex);
+  return same_day;
 }
 
 bool eval_float_state(device_t *dev) {
@@ -36,9 +51,12 @@ bool eval_float_state(device_t *dev) {
   switch (dev->u.in.state) {
     case (FILL_IDLE):
       if (active) {
-        float_deadline_us = time_us;
+        xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
+        int threshold_min = g_espond_cfg.float_sens.threshold_min;
+        xSemaphoreGive(cfg_change_mutex);
+        float_deadline_us = time_us + minutes_us(threshold_min);
         dev->u.in.state = FILL_ARMING;
-      } 
+      }
       return false;
     case (FILL_ARMING):
       if (!active) { dev->u.in.state = FILL_IDLE; return false; }
@@ -49,7 +67,10 @@ bool eval_float_state(device_t *dev) {
       return false;
     case (FILL_FILLING):
       if (!active) {
-        float_deadline_us = time_us + minutes_us(g_espond_cfg.float_sens.overflow_min);
+        xSemaphoreTake(cfg_change_mutex, portMAX_DELAY);
+        int overflow_min = g_espond_cfg.float_sens.overflow_min;
+        xSemaphoreGive(cfg_change_mutex);
+        float_deadline_us = time_us + minutes_us(overflow_min);
         dev->u.in.state = FILL_OVERFLOW;
       }
       return true;
@@ -58,7 +79,9 @@ bool eval_float_state(device_t *dev) {
       if (active) { dev->u.in.state = FILL_FILLING; return true; }
       if (time_us >= float_deadline_us) {
         dev->u.in.state = FILL_IDLE;
+        xSemaphoreTake(leak_check_mutex, portMAX_DELAY);
         leak_check.count++;
+        xSemaphoreGive(leak_check_mutex);
         return false;
       }
       return true;

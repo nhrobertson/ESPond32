@@ -27,11 +27,12 @@ static void debounce_input(debounce_t *db, int raw) {
 
 esp_err_t setup_reset_button() {
   esp_err_t ret;
-  ret = configure_gpio(RESET_BTN_GPIO, GPIO_MODE_INPUT, GPIO_INTR_ANYEDGE);
+  //Button pulls the line LOW when pressed - idle HIGH via internal pull-up
+  ret = configure_gpio(RESET_BTN_GPIO, GPIO_MODE_INPUT, GPIO_INTR_DISABLE, GPIO_PULLUP_ONLY);
   return ret;
 }
 
-esp_err_t configure_gpio(gpio_num_t GPIO_NUM, gpio_mode_t GPIO_MODE, gpio_int_type_t INTR_TYPE)
+esp_err_t configure_gpio(gpio_num_t GPIO_NUM, gpio_mode_t GPIO_MODE, gpio_int_type_t INTR_TYPE, gpio_pull_mode_t PULL_MODE)
 {
   esp_err_t ret;
   ESP_LOGI(TAG, "Configure: GPIO_NUM %d", GPIO_NUM);
@@ -42,7 +43,13 @@ esp_err_t configure_gpio(gpio_num_t GPIO_NUM, gpio_mode_t GPIO_MODE, gpio_int_ty
   //Set I/O direction
   ret = gpio_set_direction(GPIO_NUM, GPIO_MODE);
   if (ret != ESP_OK) { return ret; }
-  
+
+  //Pin an input to a known idle level so it isn't floating with nothing wired
+  if (GPIO_MODE == GPIO_MODE_INPUT) {
+    ret = gpio_set_pull_mode(GPIO_NUM, PULL_MODE);
+    if (ret != ESP_OK) { return ret; }
+  }
+
   //Enable Interrupt if input and enabled
   if (GPIO_MODE == GPIO_MODE_INPUT && INTR_TYPE != GPIO_INTR_DISABLE) {
     ret = gpio_set_intr_type(GPIO_NUM, INTR_TYPE);
@@ -98,20 +105,22 @@ esp_err_t io_setup(device_t *device) {
       gpio_num_t sw_a = ((const output_pins_t*)device->pins)->sw_a;
       gpio_num_t sw_b = ((const output_pins_t*)device->pins)->sw_b;
       
-      ret = configure_gpio(ssr, GPIO_MODE_OUTPUT, GPIO_INTR_DISABLE);
+      ret = configure_gpio(ssr, GPIO_MODE_OUTPUT, GPIO_INTR_DISABLE, GPIO_FLOATING);
       if (ret != ESP_OK) { return ret; }
 
-      ret = configure_gpio(sw_a, GPIO_MODE_INPUT, GPIO_INTR_HIGH_LEVEL);
+      //Idle LOW (neither switch pressed) with nothing wired -> resolves to SW_AUTO
+      ret = configure_gpio(sw_a, GPIO_MODE_INPUT, GPIO_INTR_DISABLE, GPIO_PULLDOWN_ONLY);
       if (ret != ESP_OK) { return ret; }
-      
-      ret = configure_gpio(sw_b, GPIO_MODE_INPUT, GPIO_INTR_HIGH_LEVEL);
+
+      ret = configure_gpio(sw_b, GPIO_MODE_INPUT, GPIO_INTR_DISABLE, GPIO_PULLDOWN_ONLY);
       if (ret != ESP_OK) { return ret; }
-      
+
       break;
     case (DEV_FLOAT):
       gpio_num_t float_sens = ((const input_pins_t*)device->pins)->float_sens;
-      
-      ret = configure_gpio(float_sens, GPIO_MODE_INPUT, GPIO_INTR_HIGH_LEVEL);
+
+      //Idle LOW with nothing wired -> resolves to "not active" (no water sensed)
+      ret = configure_gpio(float_sens, GPIO_MODE_INPUT, GPIO_INTR_DISABLE, GPIO_PULLDOWN_ONLY);
 
       break;
   }

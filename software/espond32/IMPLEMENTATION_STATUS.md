@@ -21,17 +21,6 @@ That said, **this is not "almost done."** A full read of every source file turne
 
 ## Critical bugs (would misbehave or crash on real hardware)
 
-1. **`ovr_change_mutex` is never created — likely crash on boot.** `main/espond32.c:43-44` creates `cfg_buff_mutex` and `cfg_change_mutex` via `xSemaphoreCreateMutex()`, but never does this for `ovr_change_mutex` (declared `components/models/models.c:14`). `devices_init()` (`components/device/device.c:89`) calls `xSemaphoreTake(ovr_change_mutex, portMAX_DELAY)` during the very first boot pass — a `NULL` semaphore handle, which FreeRTOS/ESP-IDF will typically assert or fault on.
-
-2. **Leak lockout doesn't actually turn anything off — and the physical OFF switch stops working once it's active.** `task_evaluate_cfg` (`components/tasks/tasks.c:117-119`):
-   ```c
-   for (int i = 0; i < NUM_DEVICES; ++i) {
-     ...
-     if (lockout) { break; }   // breaks the whole for-loop, not just this device
-   ```
-   `break` exits the entire device loop on the *first* iteration once `lockout` is set, so `resolve_device_state()` is never called again for *any* device — each output's `state` field freezes at whatever it last resolved to. If a pump/valve was ON the instant the leak fired, it stays ON, driven by `task_operate` reading the stale state, indefinitely. Flipping the physical switch to OFF also has no effect during lockout, since switch position is only ever applied through this same frozen resolver. This directly contradicts design-doc §7's priority order (leak lockout > switch OFF > switch ON > AUTO).
-
-3. **All LED indicators are dead — `led_strip_refresh()` is never called.** `components/led/led.c` only calls `led_strip_set_pixel()` and, once at init, `led_strip_clear()`. For a WS2812 strip you must call `led_strip_refresh()` to clock buffered data out over RMT. No call exists anywhere in the tree (confirmed by grep). Every LED write throughout `device.c`/`tasks.c` silently updates a buffer that's never transmitted — the panel will show nothing after boot-clear.
 
 4. **`parse_override_json` corrupts memory and copies the wrong field.** `components/models/models.c:128`:
    ```c
