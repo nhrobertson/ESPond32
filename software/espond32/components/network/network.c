@@ -1,8 +1,14 @@
 #include "network.h"
+#include "config.h"
+#include "esp_system.h"
+#include "freertos/idf_additions.h"
 #include "mqtt_client.h"
 #include "portmacro.h"
+#include "models.h"
+#include <stdio.h>
+#include <string.h>
 
-static EventGroupHandle_t s_net_events;
+EventGroupHandle_t s_net_events;
 static esp_mqtt_client_handle_t s_mqtt_client;
 static bool s_mqtt_running = false;
 static bool s_sntp_running = false;
@@ -100,6 +106,84 @@ static void handle_config_msg(esp_mqtt_event_handle_t event) {
   }
 }
 
+static void handle_command_msg(esp_mqtt_event_handle_t event) {
+  char *cmd = malloc(event->data_len + 1);
+  if (!cmd) return;
+  memcpy(cmd, event->data, event->data_len);
+  cmd[event->data_len] = '\0';
+
+  if (strcmp(cmd, "clear_leak_lockout") == 0) {
+    xTaskNotify(operate_handle, REQ_CLEAR_LEAK, eSetBits);
+  } else if (strcmp(cmd, "reboot") == 0) {
+    free(cmd);
+    esp_restart();
+  } else if (strcmp(cmd, "request_satus") == 0) {
+    xEventGroupSetBits(s_net_events, STATUS_CHANGE_BIT);
+  } else {
+
+  }
+  free(cmd);
+}
+
+static void handle_override_msg(esp_mqtt_event_handle_t event) {
+  char *json = malloc(event->data_len + 1);
+  if (!json) return;
+  memcpy(json, event->data, event->data_len);
+  json[event->data_len] = '\0';
+
+  override_json_t recieved;
+  esp_err_t err = parse_override_json(json, &recieved);
+  free(json);
+
+  if (err != ESP_OK) return;
+
+  DEVICE_RET device_ret = get_device(recieved.name);
+  if (device_ret.ret_status != ESP_OK) return;
+  if (device_ret.device->type == DEV_FLOAT) return;
+  xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
+  device_ret.device->u.out.auto_override = recieved.override;
+  xSemaphoreGive(ovr_change_mutex);
+}
+
+static void publish_status(esp_mqtt_client_handle_t client) {
+  char buf[512];
+  int n = 0;
+
+  n += sniprintf(buf + n, sizeof(buf) - n,
+      "{\"version\":%d,\"leak_lockout\":%s,\"outputs\":[",
+      g_espond_cfg.version,
+      lockout ? "true" : "false"
+      );
+
+
+  status_json_builder_t devices[NUM_DEVICES];
+  for (int i = 0; i < NUM_DEVICES; ++i) {
+    switch (g_devices[i].type) {
+      case DEV_VALVE:
+      case DEV_PUMP:
+      case DEV_LIGHT:
+        strcpy(devices[i].name, g_devices[i].name);
+        devices[i].state = g_devices[i].u.out.on;
+        break;
+      case DEV_FLOAT:
+        strcpy(devices[i].name, g_devices[i].name);
+        devices[i].state = g_devices[i].u.in.active;
+        break;
+    }
+
+    n += sniprintf(buf + n, sizeof(buf) - n,
+        "%s{\"name\":\"%s\",\"state\":%s}",
+        (i > 0) ? "," : "",
+        devices[i].name,
+        devices[i].state ? "true" : "false"
+        );
+  }
+
+  n += snprintf(buf + n, sizeof(buf) - n, "]}");
+
+  esp_mqtt_client_publish(client, "pond/status", buf, 0, 1, true);
+}
+
 static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t event_id, void *event_data) {
   esp_mqtt_event_handle_t event = event_data;
 
@@ -109,14 +193,18 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t event_i
 
       esp_mqtt_client_subscribe(event->client, "pond/config", 1);
       esp_mqtt_client_subscribe(event->client, "pond/cmd", 1);
+      esp_mqtt_client_subscribe(event->client, "pond/override", 1);
       break;
     case MQTT_EVENT_DATA:
       if (strncmp(event->topic, "pond/config", event->topic_len) == 0) {
         //Handle Config Message
         handle_config_msg(event);
       } else if (strncmp(event->topic, "pond/cmd", event->topic_len) == 0) {
-        //TODO:
         //Handle Command Message
+        handle_command_msg(event);
+      } else if (strncmp(event->topic, "pond/override", event->topic_len) == 0) {
+        //Handle Override Message
+        handle_override_msg(event);
       }
       break;
     case MQTT_EVENT_ERROR:
@@ -150,7 +238,7 @@ void task_net_manager(void *arg) {
   bool services_up = false;
   int backoff_ms = 1000;
   while (1) {
-    EventBits_t bits = xEventGroupWaitBits(s_net_events, GOT_IP_BIT | DISCONNECT_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
+    EventBits_t bits = xEventGroupWaitBits(s_net_events, GOT_IP_BIT | DISCONNECT_BIT | STATUS_CHANGE_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
 
     if (bits & GOT_IP_BIT) {
       backoff_ms = 1000;
@@ -166,6 +254,9 @@ void task_net_manager(void *arg) {
       vTaskDelay(pdMS_TO_TICKS(backoff_ms));
       if (backoff_ms < 30000) backoff_ms *= 2;
       esp_wifi_connect();
+    }
+    if (bits & STATUS_CHANGE_BIT) {
+      publish_status(s_mqtt_client);
     }
   }
 }

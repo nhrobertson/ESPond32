@@ -11,10 +11,13 @@
 #include "esp_netif_sntp.h"
 
 #include "models.h"
+#include "device.h"
 
 #define GOT_IP_BIT        BIT0
 #define DISCONNECT_BIT    BIT1
+#define STATUS_CHANGE_BIT BIT2
 
+extern EventGroupHandle_t s_net_events;
 void task_net_manager(void *arg);
 
 #endif //NETWORK_H

@@ -42,6 +42,7 @@ void app_main(void)
 
     cfg_buff_mutex = xSemaphoreCreateMutex();
     cfg_change_mutex = xSemaphoreCreateMutex();
+    ovr_change_mutex = xSemaphoreCreateMutex();
 
     g_events = xEventGroupCreate();
 
@@ -55,6 +56,7 @@ void app_main(void)
     xTaskCreatePinnedToCore(task_operate, "operate", 4096, NULL, 7, &operate_handle, 1);
     xTaskCreatePinnedToCore(task_check_leak, "leak", 4096, NULL, 5, NULL, 1);
     xTaskCreatePinnedToCore(task_check_for_reset, "reset", 4096, NULL, 10, NULL, 1);
+    xTaskCreatePinnedToCore(task_listen_for_task_event, "tasks", 2048, NULL, 4, NULL, 1);
     
     //Core 0
     xTaskCreatePinnedToCore(task_check_cfg, "cfg", 4096, NULL, 4, NULL, 0);

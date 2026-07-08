@@ -1,5 +1,6 @@
 #include "models.h"
 #include "config.h"
+#include "esp_err.h"
 #include "freertos/idf_additions.h"
 #include <string.h>
 
@@ -10,6 +11,7 @@ bool lockout = 0;
 EventGroupHandle_t g_events;
 SemaphoreHandle_t cfg_buff_mutex;
 SemaphoreHandle_t cfg_change_mutex;
+SemaphoreHandle_t ovr_change_mutex;
 TaskHandle_t operate_handle;
 
 // "HH:MM" -> hour/min, with range checking. Returns false if malformed.
@@ -101,4 +103,48 @@ esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out) {
 cleanup:
   cJSON_Delete(root);
   return ret;
+}
+
+/**
+ *  Json Format:
+ * 
+ *  {
+ *    "name": "DEVICE"
+ *    "override": "OVERRIDE_STATE"
+ *  }
+ */
+esp_err_t parse_override_json(const char* json_str, override_json_t *out) {
+  esp_err_t err = ESP_ERR_INVALID_RESPONSE;
+
+  cJSON *root = cJSON_Parse(json_str);
+  if (root == NULL) {
+    return err;
+  }
+
+  override_json_t over = { .name = "", .override = OVR_AUTO };
+  
+  const cJSON *name = cJSON_GetObjectItem(root, "name");
+  if (!cJSON_IsString(name)) goto cleanup;
+  strcpy(over.name, name->string);
+
+  const cJSON *override = cJSON_GetObjectItem(root, "override");
+  if (!cJSON_IsNumber(override)) goto cleanup;
+  switch (override->valueint) {
+    case 0:
+      over.override = OVR_ON;
+      break;
+    case 1:
+      over.override = OVR_AUTO;
+      break;
+    case 2:
+      over.override = OVR_OFF;
+      break;
+  }
+
+  *out = over;
+  err = ESP_OK;
+
+cleanup:
+  cJSON_Delete(root);
+  return err;
 }

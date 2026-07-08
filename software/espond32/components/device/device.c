@@ -1,4 +1,5 @@
 #include "device.h"
+#include "freertos/idf_additions.h"
 #include "led.h"
 #include "models.h"
 
@@ -28,7 +29,8 @@ dev_op_state_t resolve_device_state(device_t *dev) {
           state = DEV_STATE_AUTO;
           break;
       }
-
+      
+      xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
       switch (dev->u.out.auto_override) {
         case OVR_ON:
           state = DEV_STATE_ON;
@@ -40,6 +42,7 @@ dev_op_state_t resolve_device_state(device_t *dev) {
           state = DEV_STATE_AUTO;
           break;
       }
+      xSemaphoreGive(ovr_change_mutex);
       
       //Any other forceful state stuff
 
@@ -78,6 +81,19 @@ INIT_RET devices_init() {
     g_devices[i].led.ops->set_color(&g_devices[i], PIX_GREEN);
     //Setup GPIO
     ret.ret_status = g_devices[i].ops->setup(&g_devices[i]);
+    
+    switch (g_devices[i].type) {
+      case DEV_PUMP:
+      case DEV_VALVE:
+      case DEV_LIGHT:
+        xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
+        g_devices[i].u.out.auto_override = OVR_AUTO;
+        xSemaphoreGive(ovr_change_mutex);
+        g_devices[i].u.out.sw = SW_AUTO;
+        break;
+      case DEV_FLOAT:
+        break;
+    }
 
     g_devices[i].led.ops->set_color(&g_devices[i], PIX_BLACK);
   }

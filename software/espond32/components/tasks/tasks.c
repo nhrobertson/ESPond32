@@ -11,9 +11,23 @@
 #include "portmacro.h"
 #include "date_and_time.h"
 
+void task_listen_for_task_event(void *args) {
+  uint32_t requests = 0;
+  while(1) {
+    xTaskNotifyWait(0x00,
+                    0xFFFFFFFF,
+                    &requests,
+                    pdMS_TO_TICKS(1000)
+        );
+    if (requests & REQ_CLEAR_LEAK) {
+      clear_leak();
+    }
+  }
+}
+
 void task_check_for_reset(void *args) {
   int level = 0;
-  int press_start = 0;
+  int64_t press_start = 0;
   int64_t now;
   while (1) {
     level = gpio_get_level(RESET_BTN_GPIO);
@@ -21,7 +35,7 @@ void task_check_for_reset(void *args) {
 
     if (level == 0) {
       if (press_start == 0) press_start = now;
-      else if (now - press_start >= 5LL*1000*100) {
+      else if (now - press_start >= 5LL*1000*1000) {
         nvs_clear_lockout();
         lockout = 0;
         esp_restart(); 
@@ -29,30 +43,36 @@ void task_check_for_reset(void *args) {
     } else {
       press_start = 0;
     }
+    vTaskDelay(pdMS_TO_TICKS(75));
   }
-  vTaskDelay(pdMS_TO_TICKS(10));
 }
 
 void task_check_leak(void *args) {
-  bool leak = check_leak_check();
-  if (leak) {
-    //Disable Valve
-    for (int i = 0; i < NUM_DEVICES; ++i) {
-      device_t *self = &g_devices[i];
-      switch (self->type) { 
-        case DEV_PUMP:
-        case DEV_VALVE:
-          self->u.out.auto_override = OVR_OFF;
-          break;
-        default:
-          break;
+  bool leak;
+  while (1) {
+    leak = check_leak_check();
+    if (leak) {
+      //Disable Valve
+      for (int i = 0; i < NUM_DEVICES; ++i) {
+        device_t *self = &g_devices[i];
+        switch (self->type) { 
+          case DEV_PUMP:
+          case DEV_VALVE:
+            xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
+            self->u.out.auto_override = OVR_OFF;
+            xSemaphoreGive(ovr_change_mutex);
+            break;
+          default:
+            break;
+        }
       }
+      lockout = true;
+      nvs_set_lockout(1);
+      xEventGroupSetBits(s_net_events, STATUS_CHANGE_BIT);
     }
-    lockout = true;
-    nvs_set_lockout(1);
+    check_fills_per_day();
+    vTaskDelay(pdMS_TO_TICKS(10));
   }
-  check_fills_per_day();
-  vTaskDelay(pdMS_TO_TICKS(10));
 }
 
 void task_check_io(void *args) {
@@ -88,6 +108,7 @@ void task_check_cfg(void *args) {
 
 void task_evaluate_cfg(void *args) {
   esp_err_t err_check;
+  bool refill = false;
 
   while (1) {
     for (int i = 0; i < NUM_DEVICES; ++i) {
@@ -116,20 +137,32 @@ void task_evaluate_cfg(void *args) {
           check = eval_float_state(self);
           if (check) {
             DEVICE_RET dev_ret = get_device("valve1");
-
-            if ((dev_ret.ret_status != ESP_OK || 
-                dev_ret.device->type != DEV_VALVE) && 
-                dev_ret.device->u.out.auto_override == OVR_OFF) { break; }
-
-            device_t *dev = dev_ret.device;
-            dev->u.out.auto_override = OVR_ON;
+            xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
+            if (dev_ret.ret_status == ESP_OK) {
+              if (dev_ret.device->type == DEV_VALVE && 
+                  dev_ret.device->u.out.auto_override != OVR_OFF) {
+                
+                device_t *dev = dev_ret.device;
+                dev->u.out.auto_override = OVR_ON;
+                refill = true;
+              }
+            }
+            xSemaphoreGive(ovr_change_mutex);
+          } else if (refill) { 
+            DEVICE_RET dev_ret = get_device("valve1");
+            if (dev_ret.ret_status == ESP_OK) {
+              xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
+              dev_ret.device->u.out.auto_override = OVR_AUTO;
+              xSemaphoreGive(ovr_change_mutex);
+              refill = false;
+            }
           }
 
           break;
       }
         
     }
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    vTaskDelay(pdMS_TO_TICKS(250));
   }
 }
 
@@ -157,6 +190,7 @@ void task_operate(void *args) {
               }
               self->u.out.on = true;
               self->led.ops->set_color(self, PIX_GREEN);
+              xEventGroupSetBits(s_net_events, STATUS_CHANGE_BIT);
               break;
             case DEV_STATE_OFF:
               if (!self->u.out.on) { break; }
@@ -169,6 +203,7 @@ void task_operate(void *args) {
               }
               self->u.out.on = false;
               self->led.ops->set_color(self, PIX_BLACK);
+              xEventGroupSetBits(s_net_events, STATUS_CHANGE_BIT);
               break;
             default:
               //Device state dev_op_state_t should only ever be on/off

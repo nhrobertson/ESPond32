@@ -9,6 +9,8 @@
 #include "config.h"
 #include "cJSON.h"
 
+
+
 //Device Type Definetions
 typedef enum device_type_t {
   DEV_PUMP,
@@ -130,6 +132,17 @@ extern struct device {
   } u;
 } device;
 
+//Network Helpers
+typedef struct status_json_builder_t {
+  int state;
+  char* name;
+} status_json_builder_t;
+
+typedef struct override_json_t {
+  char* name;
+  auto_mode_override_t override;
+} override_json_t;
+
 
 //Return Type Definitions
 typedef struct DEVICE_RET {
@@ -173,9 +186,11 @@ typedef struct espond_cfg_t {
 
 //RTOS variables
 #define CFG_CHANGED_BIT BIT0
+#define REQ_CLEAR_LEAK BIT1
 extern EventGroupHandle_t g_events;
 extern SemaphoreHandle_t cfg_buff_mutex;
 extern SemaphoreHandle_t cfg_change_mutex;
+extern SemaphoreHandle_t ovr_change_mutex;
 extern TaskHandle_t operate_handle;
 
 
@@ -184,5 +199,6 @@ extern espond_cfg_t g_buff_cfg;
 extern bool lockout;
 
 esp_err_t parse_config_json(const char *config_str, espond_cfg_t *out);
+esp_err_t parse_override_json(const char *json_str, override_json_t *out);
 
 #endif //MODELS_H
