@@ -128,6 +128,7 @@ extern struct device {
       debounce_t float_sens_db;
       fill_state_t state;
       bool         active;
+      bool         led_on;
     } in;
   } u;
 } device;

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Set up admin password — ESPond32{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <h1>🌊 ESPond32</h1>
+  <p class="subtitle">First-time setup — choose an admin password for the control panel.</p>
+  {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+  <form method="post" action="/setup">
+    <label for="password">Admin password</label>
+    <input type="password" id="password" name="password" minlength="8" autofocus required autocomplete="new-password">
+    <label for="confirm_password">Confirm password</label>
+    <input type="password" id="confirm_password" name="confirm_password" minlength="8" required autocomplete="new-password">
+    <button type="submit" class="btn btn-primary btn-block">Create admin account</button>
+  </form>
+  <p class="hint">This password protects the control panel — it will also be reachable from
+    outside your home network, so pick something strong. You can change it later in Settings.</p>
+</div>
+{% endblock %}

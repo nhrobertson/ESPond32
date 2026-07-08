@@ -52,6 +52,7 @@ esp_mqtt_client_config_t mqtt_cfg = {
 
 static void start_mqtt(esp_mqtt_client_handle_t client) {
   if (s_mqtt_running) return;
+  ESP_LOGI(TAG, "starting MQTT client");
   esp_mqtt_client_start(client);
   s_mqtt_running = true;
 }
@@ -67,6 +68,7 @@ static void start_sntp(void) {
 
 static void stop_mqtt(esp_mqtt_client_handle_t client) {
   if (!s_mqtt_running) return;
+  ESP_LOGI(TAG, "stopping MQTT client");
   esp_mqtt_client_stop(client);
   s_mqtt_running = false;
 }
@@ -75,8 +77,10 @@ static void wifi_event_handler(void *arg, esp_event_base_t base, int32_t id, voi
   if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START) {
     esp_wifi_connect();
   } else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
+    ESP_LOGW(TAG, "wifi disconnected");
     xEventGroupSetBits(s_net_events, DISCONNECT_BIT);
   } else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
+    ESP_LOGI(TAG, "wifi connected, got IP");
     xEventGroupSetBits(s_net_events, GOT_IP_BIT);
   }
 }
@@ -99,9 +103,13 @@ static void handle_config_msg(esp_mqtt_event_handle_t event) {
   esp_err_t err = parse_config_json(temp_json, &recieved);
   free(temp_json);
 
-  if (err != ESP_OK) return;
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG, "received malformed config message: %s", esp_err_to_name(err));
+    return;
+  }
 
   if (recieved.version > g_espond_cfg.version) {
+    ESP_LOGI(TAG, "applying config update, version %d -> %d", g_espond_cfg.version, recieved.version);
     xSemaphoreTake(cfg_buff_mutex, portMAX_DELAY);
     //Begin Replacement
     g_buff_cfg = recieved;
@@ -117,14 +125,16 @@ static void handle_command_msg(esp_mqtt_event_handle_t event) {
   cmd[event->data_len] = '\0';
 
   if (strcmp(cmd, "clear_leak_lockout") == 0) {
+    ESP_LOGI(TAG, "command received: clear_leak_lockout");
     xTaskNotify(task_handle, REQ_CLEAR_LEAK, eSetBits);
   } else if (strcmp(cmd, "reboot") == 0) {
+    ESP_LOGI(TAG, "command received: reboot");
     free(cmd);
     esp_restart();
   } else if (strcmp(cmd, "request_status") == 0) {
     xEventGroupSetBits(s_net_events, STATUS_CHANGE_BIT);
   } else {
-
+    ESP_LOGW(TAG, "unknown command received: %s", cmd);
   }
   free(cmd);
 }
@@ -139,11 +149,18 @@ static void handle_override_msg(esp_mqtt_event_handle_t event) {
   esp_err_t err = parse_override_json(json, &recieved);
   free(json);
 
-  if (err != ESP_OK) return;
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG, "received malformed override message: %s", esp_err_to_name(err));
+    return;
+  }
 
   DEVICE_RET device_ret = get_device(recieved.name);
-  if (device_ret.ret_status != ESP_OK) return;
+  if (device_ret.ret_status != ESP_OK) {
+    ESP_LOGW(TAG, "override for unknown device '%s'", recieved.name);
+    return;
+  }
   if (device_ret.device->type == DEV_FLOAT) return;
+  ESP_LOGI(TAG, "override received: '%s' -> %d", recieved.name, recieved.override);
   xSemaphoreTake(ovr_change_mutex, portMAX_DELAY);
   device_ret.device->u.out.auto_override = recieved.override;
   xSemaphoreGive(ovr_change_mutex);
@@ -193,6 +210,7 @@ static void mqtt_event_handler(void *arg, esp_event_base_t base, int32_t event_i
 
   switch((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
+      ESP_LOGI(TAG, "MQTT connected to broker");
       esp_mqtt_client_publish(event->client, "pond/availability", "online", 0, 1, true);
 
       esp_mqtt_client_subscribe(event->client, "pond/config", 1);
@@ -242,6 +260,9 @@ void task_net_manager(void *arg) {
   while (1) {
     debug_pin_set(DEBUG_GPIO_NET, 0);
     EventBits_t bits = xEventGroupWaitBits(s_net_events, GOT_IP_BIT | DISCONNECT_BIT | STATUS_CHANGE_BIT, pdTRUE, pdFALSE, portMAX_DELAY);
+#if DEBUG_INDEPTH_LOG
+    ESP_LOGD(TAG, "task_net_manager");
+#endif
     debug_pin_set(DEBUG_GPIO_NET, 1);
 
     if (bits & GOT_IP_BIT) {

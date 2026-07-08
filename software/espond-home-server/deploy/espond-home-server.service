@@ -1,0 +1,20 @@
+[Unit]
+Description=ESPond32 Home Server
+After=network-online.target mosquitto.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=espond
+Group=espond
+WorkingDirectory=/opt/espond-home-server
+Environment=ESPOND_DB_PATH=/opt/espond-home-server/espond.db
+ExecStart=/opt/espond-home-server/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+# Bound to loopback only (see ExecStart) — Caddy is the only public entry point.
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

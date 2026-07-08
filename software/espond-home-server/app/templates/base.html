@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ESPond32{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  {% if show_nav %}
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="brand">🌊 ESPond32</span>
+      <nav class="nav">
+        <a href="/" class="{{ 'active' if active_nav == 'dashboard' else '' }}">Dashboard</a>
+        <a href="/schedule" class="{{ 'active' if active_nav == 'schedule' else '' }}">Schedule</a>
+        <a href="/settings" class="{{ 'active' if active_nav == 'settings' else '' }}">Settings</a>
+        <form method="post" action="/logout" class="logout-form">
+          <button type="submit" class="link-button">Log out</button>
+        </form>
+      </nav>
+    </div>
+  </header>
+  {% endif %}
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

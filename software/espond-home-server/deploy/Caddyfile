@@ -1,0 +1,10 @@
+# Reverse proxy with automatic HTTPS (Let's Encrypt) in front of the home server.
+#
+# Replace the placeholder domain with your own DDNS/domain name pointed at your home's
+# public IP, and forward ports 443 (and 80, for the ACME HTTP challenge) from your router
+# to this Pi. The app itself only listens on 127.0.0.1:8000 — Caddy is the only thing that
+# should ever be reachable directly from the internet.
+
+your-espond-domain.example.com {
+    reverse_proxy 127.0.0.1:8000
+}

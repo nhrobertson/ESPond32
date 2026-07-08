@@ -108,5 +108,7 @@ INIT_RET devices_init() {
   
   ret.ret_status = setup_reset_button();
 
+  ESP_LOGI(TAG, "device init complete: %d devices configured", NUM_DEVICES);
+
   return ret;
 }

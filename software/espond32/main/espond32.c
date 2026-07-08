@@ -40,6 +40,8 @@ static const char *TAG = "espond32";
 
 void app_main(void)
 {
+    ESP_LOGI(TAG, "espond32 starting up");
+
     esp_err_t err;
     err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -74,9 +76,11 @@ void app_main(void)
     xTaskCreatePinnedToCore(task_check_leak, "leak", 4096, NULL, 5, NULL, 1);
     xTaskCreatePinnedToCore(task_check_for_reset, "reset", 4096, NULL, 10, NULL, 1);
     xTaskCreatePinnedToCore(task_listen_for_task_event, "tasks", 2048, NULL, 4, &task_handle, 1);
-    xTaskCreatePinnedToCore(task_set_sys_light, "sys_led", 2048, NULL, 3, NULL, 1);
+    xTaskCreatePinnedToCore(task_set_sys_light, "sys_led", 4096, NULL, 3, NULL, 1);
     
     //Core 0
     xTaskCreatePinnedToCore(task_check_cfg, "cfg", 4096, NULL, 4, NULL, 0);
     xTaskCreatePinnedToCore(task_net_manager, "net", 8196, NULL, 5, NULL, 0);
+
+    ESP_LOGI(TAG, "startup complete, all tasks running");
 }

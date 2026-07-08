@@ -1,6 +1,9 @@
 #include "float.h"
 #include "models.h"
 #include "portmacro.h"
+#include "esp_log.h"
+
+static const char *TAG = "espond32 - float";
 
 static int64_t float_deadline_us = 0;
 static leak_check_t leak_check = {0};
@@ -56,12 +59,14 @@ bool eval_float_state(device_t *dev) {
         xSemaphoreGive(cfg_change_mutex);
         float_deadline_us = time_us + minutes_us(threshold_min);
         dev->u.in.state = FILL_ARMING;
+        ESP_LOGI(TAG, "float active, arming refill");
       }
       return false;
     case (FILL_ARMING):
       if (!active) { dev->u.in.state = FILL_IDLE; return false; }
       if (time_us >= float_deadline_us) {
         dev->u.in.state = FILL_FILLING;
+        ESP_LOGI(TAG, "refill threshold met, filling");
         return true;
       }
       return false;
@@ -72,6 +77,7 @@ bool eval_float_state(device_t *dev) {
         xSemaphoreGive(cfg_change_mutex);
         float_deadline_us = time_us + minutes_us(overflow_min);
         dev->u.in.state = FILL_OVERFLOW;
+        ESP_LOGI(TAG, "float cleared, holding fill for overflow window");
       }
       return true;
 
@@ -81,7 +87,9 @@ bool eval_float_state(device_t *dev) {
         dev->u.in.state = FILL_IDLE;
         xSemaphoreTake(leak_check_mutex, portMAX_DELAY);
         leak_check.count++;
+        int fill_count = leak_check.count;
         xSemaphoreGive(leak_check_mutex);
+        ESP_LOGI(TAG, "fill cycle complete (count today: %d)", fill_count);
         return false;
       }
       return true;

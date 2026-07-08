@@ -13,9 +13,12 @@ const pix_t PIX_YELLOW    = {.r = 255, .g = 255, .b = 0};
 const pix_t PIX_AMBER     = {.r = 255, .g = 128, .b = 0};
 
 led_strip_handle_t led_strip = NULL;
+static SemaphoreHandle_t led_strip_mutex;
 
 LED_INIT_RET leds_init() {
   LED_INIT_RET ret = {.name = "led", .ret_status = ESP_OK };
+
+  led_strip_mutex = xSemaphoreCreateMutex();
 
   /// LED strip common configuration
   led_strip_config_t strip_config = {
@@ -49,13 +52,17 @@ LED_INIT_RET leds_init() {
 esp_err_t set_sys_led_color(pix_t pixel) {
   esp_err_t ret = ESP_ERR_INVALID_RESPONSE;
 
+  xSemaphoreTake(led_strip_mutex, portMAX_DELAY);
   ret = led_strip_set_pixel(led_strip, SYS_LED_PIX, pixel.r, pixel.g, pixel.b);
   ret = led_strip_refresh(led_strip);
+  xSemaphoreGive(led_strip_mutex);
   return ret;
 }
 
 esp_err_t set_dev_led_color(device_t *device, pix_t pixel) {
   esp_err_t ret = ESP_ERR_INVALID_RESPONSE;
+
+  xSemaphoreTake(led_strip_mutex, portMAX_DELAY);
   switch (device->type) {
     case (DEV_PUMP):
     case (DEV_VALVE):
@@ -67,6 +74,7 @@ esp_err_t set_dev_led_color(device_t *device, pix_t pixel) {
       break;
   }
   ret = led_strip_refresh(led_strip);
+  xSemaphoreGive(led_strip_mutex);
   return ret;
 }
 

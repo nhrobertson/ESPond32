@@ -63,8 +63,11 @@ void cfg_load(espond_cfg_t *cfg) {
 
   ret = nvs_load_espond_cfg(cfg);
   if (ret != ESP_OK) {
+    ESP_LOGW(TAG, "no valid config in NVS (%s), loading defaults", esp_err_to_name(ret));
     *cfg = cfg_default();
     nvs_store_espond_cfg(cfg);
+  } else {
+    ESP_LOGI(TAG, "loaded config from NVS, version %d", cfg->version);
   }
 }
 

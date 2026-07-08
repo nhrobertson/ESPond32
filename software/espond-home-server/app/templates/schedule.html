@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Schedule — ESPond32{% endblock %}
+{% block content %}
+<h1>Schedule</h1>
+<p class="subtitle">Times are 24-hour, device-local. Changes take effect after saving and are
+  sent to the device immediately (and automatically re-sent if it's offline right now).</p>
+
+{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+{% if saved %}<div class="alert alert-success">Saved and sent to the device.</div>{% endif %}
+
+<form method="post" action="/schedule">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+  {% for o in outputs %}
+  <div class="output-form">
+    <h2>{{ o.label }}</h2>
+    <div class="time-row">
+      <div>
+        <label for="on_{{ o.name }}">On</label>
+        <input type="time" id="on_{{ o.name }}" name="on_{{ o.name }}" value="{{ o.on }}" {{ 'disabled' if o.no_schedule else '' }}>
+      </div>
+      <div>
+        <label for="off_{{ o.name }}">Off</label>
+        <input type="time" id="off_{{ o.name }}" name="off_{{ o.name }}" value="{{ o.off }}" {{ 'disabled' if o.no_schedule else '' }}>
+      </div>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="no_schedule_{{ o.name }}" name="no_schedule_{{ o.name }}"
+             onchange="document.getElementById('on_{{ o.name }}').disabled = this.checked; document.getElementById('off_{{ o.name }}').disabled = this.checked;"
+             {{ 'checked' if o.no_schedule else '' }}>
+      <label for="no_schedule_{{ o.name }}">No schedule (manual/override only)</label>
+    </div>
+    <label>Active days</label>
+    <div class="day-chips">
+      {% for idx, label in day_labels %}
+      <label class="day-chip">
+        <input type="checkbox" name="days_{{ o.name }}" value="{{ idx }}" {{ 'checked' if idx in o.days else '' }}>
+        <span>{{ label }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="output-form">
+    <h2>Float sensor</h2>
+    <div class="float-grid">
+      <div>
+        <label for="threshold_min">Wet threshold (min)</label>
+        <input type="number" id="threshold_min" name="threshold_min" min="0" value="{{ float_sens.threshold_min }}">
+      </div>
+      <div>
+        <label for="overflow_min">Overflow window (min)</label>
+        <input type="number" id="overflow_min" name="overflow_min" min="0" value="{{ float_sens.overflow_min }}">
+      </div>
+      <div>
+        <label for="max_fills_per_day">Max fills / day</label>
+        <input type="number" id="max_fills_per_day" name="max_fills_per_day" min="0" value="{{ float_sens.max_fills_per_day }}">
+      </div>
+    </div>
+    <p class="hint">Exceeding max fills/day engages leak lockout, forcing pump1, pump2, and
+      valve1 off until cleared from the dashboard.</p>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save &amp; send to device</button>
+</form>
+{% endblock %}

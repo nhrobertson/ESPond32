@@ -45,9 +45,8 @@
 
 #define SYS_LED_PIX           5
 
-//Logic-analyzer debug probe pins - one per task, HIGH while that task is doing work,
-//LOW while it's asleep/blocked. 
 
+#define DEBUG_INDEPTH_LOG     1
 #define DEBUG_GPIO_ENABLE     1
 
 #define DEBUG_GPIO_OPERATE    GPIO_NUM_21   //task_operate      (Core 1, 50ms)

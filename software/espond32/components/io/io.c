@@ -82,7 +82,7 @@ esp_err_t read_gpio(gpio_num_t GPIO_NUM, io_mode_t *mode) {
   esp_err_t ret;
   int level = -1;
   level = gpio_get_level(GPIO_NUM);
-  ESP_LOGI(TAG, "Read GPIO: %d to %d", GPIO_NUM, (int)level);
+  //ESP_LOGI(TAG, "Read GPIO: %d to %d", GPIO_NUM, (int)level);
 
   if (level == -1) {
     ret = ESP_ERR_INVALID_RESPONSE;
