@@ -189,6 +189,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a34082b9-54d7-46d4-b4ff-0040a141d3c1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "aeae47d3-71ba-4b75-8a39-83d225bc400c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/d71039a4-c3f9-4bf4-9bd4-0369eab2433e")
 		(sheetname "/")
@@ -579,6 +605,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f2673bae-39e7-49b8-98d5-a561ba3119c9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4070afd9-39b4-4ad3-b381-3cae55d1f794")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/6868a2c5-bbbf-4f6a-b663-eb4923a24f41")
 		(sheetname "/")
@@ -730,6 +782,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "767bd075-63eb-4a4f-957e-514cc681b7eb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d6e40664-12ee-4ec4-aa52-ffc8a11a092a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6734b22c-e4e2-4402-b52e-2f88b3fc6040")
 			(effects
 				(font
 					(size 1 1)
@@ -889,6 +967,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9937f86f-cc72-46ab-88c0-b18dbc288cd7")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ed74d2b5-60ea-4155-9056-1a653e958a53")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "292f06a4-4ac8-4a18-95a3-c900885e188d")
 			(effects
 				(font
 					(size 1 1)
@@ -1194,6 +1298,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ee6e85ac-62e1-406c-9d94-6752a2c138b9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5d9a303b-4899-4e3c-8621-a3a160034b72")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/9ccf50ee-e109-4833-bad8-ef5434a846d4")
 		(sheetname "/")
@@ -1352,6 +1482,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d9a41c75-c88f-4646-adca-7b158e87fd7b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "39b8cddb-0574-42ca-98df-b4fee76156f5")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/c7760a03-beb0-4a27-a8bc-3ea216807432")
 		(sheetname "/")
@@ -1499,6 +1655,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a0e106ff-0ceb-45b0-acd6-709c17ebb61a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "fb9b90da-5ccd-4e7a-a105-f359bb492a3f")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -1799,6 +1981,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "dd9bdced-d384-4a56-b105-6aec9b24cafc")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4240434b-f05a-47ba-9676-2d9cfffb9bd6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/838fbdac-ace9-46d5-a19e-16d43f69ee6b")
 		(sheetname "/")
@@ -1950,6 +2158,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "4102f104-89c0-4c5a-b32e-81a7225e9ae2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "cfb9c3f3-13fe-40da-82a9-5948878f5e5a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8295b9cd-4d44-4160-9dec-0be9bf57107f")
 			(effects
 				(font
 					(size 1 1)
@@ -2340,6 +2574,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2a0c6ba2-b727-4eba-b0f2-40595bcee09f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "281f35d9-ff71-402b-bd69-026217276f89")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/1bb8ef4c-b812-4241-9975-1b4bb1ef9d68")
 		(sheetname "/")
@@ -2491,6 +2751,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "39560cdf-b117-40a7-b8ac-16d346a8331d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "647285f9-21a4-496c-9f02-465f64ddcb06")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a3f7ffd6-2e82-4861-ba88-204098f7ba37")
 			(effects
 				(font
 					(size 1 1)
@@ -2880,6 +3166,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9584f44c-6778-4a0c-b51c-66a74a33b17c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9c7be9be-a689-48b2-84cf-23d45dece8b3")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/0a0d557f-0881-4083-b15f-45c592d52d27")
 		(sheetname "/")
@@ -3027,6 +3339,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7debb81c-3145-4bce-8f26-5a4c5179b0b1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "90c0528d-da0b-496a-9de2-cf660aaff63d")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -3388,6 +3726,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "18782721-6115-4798-a0a3-eb315322bbe4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c28b064a-bf8d-4395-aaa3-a07a72d14f75")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -3844,6 +4208,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6f7a08f2-d602-40bb-93d8-40c5acaa4611")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d0e48bdc-3424-4e72-a428-8b40b2e21669")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/56fb75f0-0c2c-4c69-88e0-cd5644ef52ff")
 		(sheetname "/")
@@ -3996,6 +4386,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "68ff5968-5ac0-4ac4-b1d5-9901ee319bba")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "306ae0e8-8956-4816-b1f9-7cdc89676424")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "38f68bc7-ec2b-4d41-a04f-58c4ad4f1118")
 			(effects
 				(font
 					(size 1 1)
@@ -4295,6 +4711,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "72742fe1-69a4-4179-b13d-3a0749345349")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "430080b9-6248-4bab-8925-7042461f3d68")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "60808a6e-c574-4860-9558-01d493c34a26")
 			(effects
 				(font
 					(size 1 1)
@@ -4685,6 +5127,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "bac5f113-4bdc-4228-8fa2-c8fed8f5e981")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e06dd226-3aa6-45ca-968c-83f057b3c407")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3982a6d2-6a62-4dbb-82b5-25ee23289562")
 			(effects
 				(font
 					(size 1 1)
@@ -5139,6 +5607,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9d4c2aad-6eb3-4230-b0b4-1004d5ea58b2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "21007470-0bef-4e36-9ae0-5a4d9aea7f33")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "SOT?23*")
 		(path "/a1914a27-bf31-491c-94eb-ac38a8edb64c")
 		(sheetname "/")
@@ -5521,6 +6015,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "bbb31388-fa05-4821-a58d-f287e3bbeffa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b98585e2-f6e4-435f-8518-e400b5d4db85")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/97e551ed-0fba-4551-8d34-7f60ce74696c")
 		(sheetname "/")
@@ -5668,6 +6188,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d7b2b2c4-8134-4119-8380-27e6c6f886fe")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "82837af4-5bc3-4c6a-ba5c-6ff0da764a1d")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -5913,7 +6459,7 @@
 		(descr "Terminal Block Phoenix MPT-0,5-2-2.54, 2 pins, pitch 2.54mm, size 5.54x6.2mm, drill diameter 1.1mm, pad diameter 2.2mm, http://www.mouser.com/ds/2/324/ItemDetail_1725656-920552.pdf")
 		(tags "THT Terminal Block Phoenix MPT-0,5-2-2.54 pitch 2.54mm size 5.54x6.2mm drill 1.1mm pad 2.2mm")
 		(property "Reference" "J7"
-			(at 2 4.54 90)
+			(at 5.5 0 180)
 			(layer "F.SilkS")
 			(uuid "774a68df-d40e-46e3-8c05-97ca9c7d937c")
 			(effects
@@ -5962,6 +6508,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "0714d602-5f44-476a-8238-9731c065f1f6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "393603a0-0cb2-4ca9-a2d0-1d694f040c74")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2e898f11-bf4e-4dce-955b-b9bce1f0fceb")
 			(effects
 				(font
 					(size 1 1)
@@ -6347,6 +6919,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "63504189-955d-4773-9233-ecbd4723da43")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "88549246-f883-4b3f-bd2e-87cffe602ef1")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -6928,6 +7526,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9e9e8b8f-685d-4b72-9758-67837175b05b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b6d758f1-a2b8-4c1a-9af4-ff36b94a0684")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "LED*WS2812*-2020_PLCC4*")
 		(path "/d5ec5521-0999-4f14-820a-9ced9dbb627f")
 		(sheetname "/")
@@ -7162,14 +7786,14 @@
 			)
 		)
 	)
-	(footprint "Inductor_SMD:L_6.3x6.3_H3"
+	(footprint "Inductor_SMD:L_Sunlord_SWPA6045S"
 		(layer "F.Cu")
 		(uuid "6f24d39e-b28d-463b-8db7-ac0d56756ee9")
 		(at 153.5 113.75 -90)
-		(descr "Choke, SMD, 6.3x6.3mm 3mm height")
-		(tags "Choke SMD")
+		(descr "Inductor, Sunlord, SWPA6045S, 6.0x6.0x4.5mm, (https://www.sunlordinc.com/UploadFiles/PDF_Cat/20120704094224784.pdf)")
+		(tags "swpa")
 		(property "Reference" "L1"
-			(at 0 -4.45 90)
+			(at 0 -3.95 270)
 			(layer "F.SilkS")
 			(uuid "a2a69a09-60ed-48c2-bfa4-451ca49a175d")
 			(effects
@@ -7180,7 +7804,7 @@
 			)
 		)
 		(property "Value" "33uH"
-			(at 0 4.45 90)
+			(at 0 3.95 270)
 			(layer "F.Fab")
 			(uuid "7effba54-9776-448d-9913-7897e0ab0d65")
 			(effects
@@ -7192,27 +7816,72 @@
 		)
 		(property "Datasheet" ""
 			(at 0 0 270)
-			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b6916b2d-be5f-4a33-b68b-a8e66f9b985c")
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
 		(property "Description" "Inductor, small symbol"
 			(at 0 0 270)
-			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "da0a85e4-c521-45fe-9a71-83a2d9801067")
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "inductor/SMD"
+			(at 0 0 270)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "84de1808-293d-4952-b1ec-a2212f69e2e5")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "af65177c-a36d-4d0c-b00b-ac858e689c74")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e18c9d3b-6fb2-4a5f-8db7-72d92e894438")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C83451"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1a7d8147-ffc5-49c9-8b3d-3795cd29145f")
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
 			)
 		)
@@ -7229,48 +7898,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
-			(start -3.3 3.2)
-			(end -3.3 1.5)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "da92e04f-c3ba-4a2a-92a2-77e8538b220c")
-		)
-		(fp_line
-			(start 3.3 3.2)
-			(end -3.3 3.2)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "a0cc8dd4-88cf-490c-bc83-b1e0c98b3818")
-		)
-		(fp_line
-			(start 3.3 1.5)
-			(end 3.3 3.2)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "65008d9c-4822-48a5-8965-3bcb752d0855")
-		)
-		(fp_line
-			(start -3.3 -1.5)
-			(end -3.3 -3.2)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "1b407e67-8111-4474-96d8-8ddc423fcbc5")
-		)
-		(fp_line
-			(start -3.3 -3.2)
-			(end 3.3 -3.2)
+			(start 3.11 3.11)
+			(end -3.11 3.11)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -7279,8 +7908,8 @@
 			(uuid "b998463c-fba4-4139-8411-37a312e127e0")
 		)
 		(fp_line
-			(start 3.3 -3.2)
-			(end 3.3 -1.5)
+			(start -3.11 -3.11)
+			(end 3.11 -3.11)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -7289,8 +7918,58 @@
 			(uuid "90fed40f-1fec-4b49-b615-e5bf36860593")
 		)
 		(fp_line
-			(start -3.75 3.4)
-			(end 3.75 3.4)
+			(start -3.25 3.25)
+			(end -3.25 3.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "5b24dcb3-104a-46e4-9c95-52a1c00d645d")
+		)
+		(fp_line
+			(start 3.25 3.25)
+			(end -3.25 3.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "d9acb726-255e-4216-9ad3-4d1468b7a20a")
+		)
+		(fp_line
+			(start -3.35 3.1)
+			(end -3.35 -3.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "a0cc8dd4-88cf-490c-bc83-b1e0c98b3818")
+		)
+		(fp_line
+			(start -3.25 3.1)
+			(end -3.35 3.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "1b407e67-8111-4474-96d8-8ddc423fcbc5")
+		)
+		(fp_line
+			(start 3.25 3.1)
+			(end 3.25 3.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "b95e0323-b623-417a-8a70-154d8e2446a7")
+		)
+		(fp_line
+			(start 3.35 3.1)
+			(end 3.25 3.1)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -7299,8 +7978,8 @@
 			(uuid "8a64c4fc-bc75-4b30-914a-b32d3b0caee7")
 		)
 		(fp_line
-			(start 3.75 3.4)
-			(end 3.75 -3.4)
+			(start -3.35 -3.1)
+			(end -3.25 -3.1)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -7309,8 +7988,18 @@
 			(uuid "d1142fd6-712a-469a-87c4-19ccf5737a75")
 		)
 		(fp_line
-			(start -3.75 -3.4)
-			(end -3.75 3.4)
+			(start -3.25 -3.1)
+			(end -3.25 -3.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "65008d9c-4822-48a5-8965-3bcb752d0855")
+		)
+		(fp_line
+			(start 3.25 -3.1)
+			(end 3.35 -3.1)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -7319,8 +8008,18 @@
 			(uuid "842aa6ca-ebca-48ae-bb7f-7e40782bbf3a")
 		)
 		(fp_line
-			(start 3.75 -3.4)
-			(end -3.75 -3.4)
+			(start 3.35 -3.1)
+			(end 3.35 3.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "da92e04f-c3ba-4a2a-92a2-77e8538b220c")
+		)
+		(fp_line
+			(start -3.25 -3.25)
+			(end 3.25 -3.25)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -7329,89 +8028,28 @@
 			(uuid "b08b09db-c583-4456-bb55-544252ffd43a")
 		)
 		(fp_line
-			(start -3.15 3.15)
-			(end 3.15 3.15)
+			(start 3.25 -3.25)
+			(end 3.25 -3.1)
 			(stroke
-				(width 0.1)
+				(width 0.05)
 				(type solid)
 			)
-			(layer "F.Fab")
-			(uuid "5b24dcb3-104a-46e4-9c95-52a1c00d645d")
-		)
-		(fp_line
-			(start -3.15 3.15)
-			(end -3.15 1.5)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
+			(layer "F.CrtYd")
 			(uuid "e7b187e4-1d2b-4e3c-84a0-dcbcd7793348")
 		)
-		(fp_line
-			(start 3.15 3.15)
-			(end 3.15 1.5)
+		(fp_rect
+			(start -3 -3)
+			(end 3 3)
 			(stroke
 				(width 0.1)
 				(type solid)
 			)
+			(fill no)
 			(layer "F.Fab")
-			(uuid "b95e0323-b623-417a-8a70-154d8e2446a7")
-		)
-		(fp_line
-			(start -3.15 -3.15)
-			(end -3.15 -1.5)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "d9acb726-255e-4216-9ad3-4d1468b7a20a")
-		)
-		(fp_line
-			(start -3.15 -3.15)
-			(end 3.15 -3.15)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "e6754639-97b4-4830-9ede-a199cb63b0d3")
-		)
-		(fp_line
-			(start 3.15 -3.15)
-			(end 3.15 -1.5)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "9ff25ad7-8c14-48d2-8714-58f5e1411968")
-		)
-		(fp_arc
-			(start 1.91 1.91)
-			(mid 0 2.701148)
-			(end -1.91 1.91)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "3d60c875-d01c-46a8-99f0-26dab2b19b6c")
-		)
-		(fp_arc
-			(start -1.91 -1.91)
-			(mid 0 -2.701148)
-			(end 1.91 -1.91)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "4c1712ac-0918-4d5b-9d04-a1a268d7781d")
+			(uuid "2ed9ed3e-adb8-4669-afb9-0ae3be576949")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "68a431d9-02a1-4830-b490-b3f7778050d6")
 			(effects
@@ -7421,24 +8059,26 @@
 				)
 			)
 		)
-		(pad "1" smd rect
-			(at -2.75 0 270)
-			(size 1.5 2.4)
+		(pad "1" smd roundrect
+			(at -2.25 0 270)
+			(size 1.7 5.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.147059)
 			(net "Net-(D9-K)")
 			(pintype "passive")
 			(uuid "74eebdb8-2d75-41b8-96a3-27e728ab0ba0")
 		)
-		(pad "2" smd rect
-			(at 2.75 0 270)
-			(size 1.5 2.4)
+		(pad "2" smd roundrect
+			(at 2.25 0 270)
+			(size 1.7 5.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.147059)
 			(net "+3V3")
 			(pintype "passive")
 			(uuid "7fe4bbf7-33ad-4647-9771-38665435a291")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_6.3x6.3_H3.step"
+		(model "${KICAD10_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_Sunlord_SWPA6045S.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7506,6 +8146,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9169c475-ec1a-4375-8faa-27d06e67b566")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "704fe068-2946-45df-9e20-4004ac8221b1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0268b245-dfd9-4192-92d4-b7af3a75668d")
 			(effects
 				(font
 					(size 1 1)
@@ -7664,6 +8330,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "77465fb6-b6c3-401d-bbac-11e1547b7a7c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92a28b14-7e33-49c1-911b-4f139c214320")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b0774491-8cda-48b4-9ff8-316eb7ad6e39")
 			(effects
 				(font
 					(size 1 1)
@@ -7830,6 +8522,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "00daefc2-a632-4022-ad30-cd44fe2e4afe")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "bc4b3b5a-021a-4c3b-b26a-4fe64131da8d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "MountingHole*")
 		(path "/70c36c4b-2896-4379-a930-12992152f530")
 		(sheetname "/")
@@ -7940,6 +8658,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7e417ce2-0ee3-46ea-a720-a8b1c2616b96")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c846c9d5-28f0-4177-bf26-9224e3eee773")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "871f3c2a-961e-4908-83fb-45b7cc5f6131")
 			(effects
 				(font
 					(size 1 1)
@@ -8296,6 +9040,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6ea50104-1c68-4002-adc9-c8b957fb22c9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "eba1d3d9-b8b7-496a-a67b-31469601e8c7")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/4af44778-012e-4a31-8ec5-9e6873abc50d")
 		(sheetname "/")
@@ -8447,6 +9217,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "51ad421f-7892-4475-9577-8e8a415564a9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7137d16c-e874-4a23-959d-311a5975f185")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "963c1069-1d9c-4b22-9ead-7df7cc9c26a8")
 			(effects
 				(font
 					(size 1 1)
@@ -8824,6 +9620,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b20e0e23-dd47-4a92-b6d8-e533175f78c6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "34e69d16-e903-4631-86bb-8feaa577a55c")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -9413,6 +10235,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ceda405e-043b-43ec-9269-6f551d67299c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "774fcb5d-4ae8-47b0-8af6-73571a865ec9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/818758cc-f219-42d8-a08f-28f05bf976fc")
 		(sheetname "/")
@@ -9572,6 +10420,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "334cc249-7190-40e8-8c0e-a3ecd4b189a4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f21f6f6c-c8b2-4b7d-ba3b-cdc95edb9ee0")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "MountingHole*")
 		(path "/36b93dc8-f6ed-4f73-8632-fb59a170afdf")
 		(sheetname "/")
@@ -9681,6 +10555,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9d4a1a3b-b08a-417e-89a4-9f9dd75bb26a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "60a4c850-95cb-4161-b3cc-10956443b746")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "32bd9fce-c111-417c-a456-79f6d5e91b45")
 			(effects
 				(font
 					(size 1 1)
@@ -10015,7 +10915,7 @@
 		(descr "Terminal Block Phoenix MPT-0,5-2-2.54, 2 pins, pitch 2.54mm, size 5.54x6.2mm, drill diameter 1.1mm, pad diameter 2.2mm, http://www.mouser.com/ds/2/324/ItemDetail_1725656-920552.pdf")
 		(tags "THT Terminal Block Phoenix MPT-0,5-2-2.54 pitch 2.54mm size 5.54x6.2mm drill 1.1mm pad 2.2mm")
 		(property "Reference" "J6"
-			(at 5.5 2 180)
+			(at 0 -4.5 180)
 			(layer "F.SilkS")
 			(uuid "7f791f39-7b6a-4a20-b92b-9c028afdda16")
 			(effects
@@ -10064,6 +10964,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "98e96075-2921-4a95-ac5f-4feb49ae1246")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "80ac39e7-32de-4c05-bcc2-14876e510151")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2142d4d3-7ba7-47ae-ba9f-8aa38eb38703")
 			(effects
 				(font
 					(size 1 1)
@@ -10451,6 +11377,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0c6798db-6896-4904-941f-ee4a629b1880")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1dd0663c-fa38-405b-8451-5ecc807cd89b")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -11395,6 +12347,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0d5f2793-d3f8-4f96-abff-5d388064c68b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a3586b6d-e566-4dbe-91b5-fb0cb3926fac")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "LED*WS2812*-2020_PLCC4*")
 		(path "/3586589d-b365-43f8-931d-9b8fc37836c1")
 		(sheetname "/")
@@ -11692,6 +12670,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2d339183-1674-4060-8f7d-7ac7327aa2bd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1c42162a-902c-40e5-be06-c4cefb5e49b9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "MountingHole*")
 		(path "/c3153c10-ad49-42c2-bd2e-f68045a5fdcf")
 		(sheetname "/")
@@ -11801,6 +12805,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "dba434fd-46a0-4961-bde7-92e3802f3acc")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4a1024c1-2a1e-486d-8fe0-0c3011134267")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a3abac03-8ce6-4705-bb36-631ba3eb50f8")
 			(effects
 				(font
 					(size 1 1)
@@ -12190,6 +13220,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "dd6f8b36-f175-4656-b470-70c9bacf2449")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f9236000-7fb5-4cb8-b0b7-88b3e06e0c0a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/2db30236-bb4a-4b4f-917d-9032385da907")
 		(sheetname "/")
@@ -12342,6 +13398,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9ac91fba-06f0-4829-a4ce-9c8015c3eb28")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "51fb9c10-090e-455d-ba6c-1abec2e6f8f5")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "56d9f2ab-177a-417b-a304-2c9c2eee63c7")
 			(effects
 				(font
 					(size 1 1)
@@ -12648,6 +13730,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "28f074df-cd97-4195-87bb-5039c1363e64")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "dd0c9a3b-d08d-4407-818f-515fc349be14")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/2557125e-83a7-4f7e-843b-636c5b5c293a")
 		(sheetname "/")
@@ -12799,6 +13907,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "82b0fd5c-afaf-4e12-a09e-6edbb038f0a9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "201eeb1d-48cd-469f-8f5c-ccba36eadea6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9e21b691-55fa-4301-9766-1d9fca06aafe")
 			(effects
 				(font
 					(size 1 1)
@@ -13198,7 +14332,7 @@
 		(descr "Terminal Block Phoenix MPT-0,5-2-2.54, 2 pins, pitch 2.54mm, size 5.54x6.2mm, drill diameter 1.1mm, pad diameter 2.2mm, http://www.mouser.com/ds/2/324/ItemDetail_1725656-920552.pdf")
 		(tags "THT Terminal Block Phoenix MPT-0,5-2-2.54 pitch 2.54mm size 5.54x6.2mm drill 1.1mm pad 2.2mm")
 		(property "Reference" "J5"
-			(at -0.5 -4.5 180)
+			(at 0 -4.5 180)
 			(layer "F.SilkS")
 			(uuid "48e7fc4d-4f62-4d86-8dbc-004749e71185")
 			(effects
@@ -13247,6 +14381,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "547fcfae-184e-4442-8ff7-79b7fa1ef28b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "367be379-8be4-4523-9cbf-975bf16a3b3b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "316b39dd-4beb-4ade-8b1f-1c7dd7eabedb")
 			(effects
 				(font
 					(size 1 1)
@@ -13644,6 +14804,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ebeeea19-b07c-4cb6-b8a8-0e1e0050af05")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e573bb73-5f5a-4f27-af13-32d5b0039aa5")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/cb99bb8e-8299-40c9-8844-db9d36e0f6c3")
 		(sheetname "/")
@@ -13791,6 +14977,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8d4d5a77-70d3-493a-bb15-e29ab34dd1e3")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "68604af9-70d3-4ef4-bac5-5cf6d8b45c5a")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -14091,6 +15303,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1adbbf4a-a51e-40ae-afb1-aa690cd12ec1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "129ef473-cde3-43a7-8258-2a9b533160e2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/bd186c11-7540-4f22-a306-942f3576a589")
 		(sheetname "/")
@@ -14242,6 +15480,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "00165113-8578-4b29-97e8-98122d1f4dac")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3e9f5c6b-c81a-4f6f-9bc4-497c81cf7a98")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5383ee84-8c88-4716-a26b-2eca95824aac")
 			(effects
 				(font
 					(size 1 1)
@@ -14407,6 +15671,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "05c5f78e-d67a-4aa4-94fb-4bf60f85059e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "99d141d2-112e-41dc-af46-420e227cb7fb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/1f20eee7-0033-4688-8bdd-88ca328921b8")
 		(sheetname "/")
@@ -14558,6 +15848,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "17629e38-81ff-4753-919d-fb2050783f42")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d5fd015b-7249-49ae-ad6a-4c473df4ca17")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "127f5c1a-285b-48e7-a7e3-986b89aa9431")
 			(effects
 				(font
 					(size 1 1)
@@ -14723,6 +16039,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "67f9710e-d3be-4821-8732-46538ef68347")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b95c3430-4dcc-4c18-922d-765dbbc7d7e0")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/4794843c-c3bc-480d-8a29-93c0ad13bd11")
 		(sheetname "/")
@@ -14881,6 +16223,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3bea5d8b-d19e-4d18-9a3d-8eee77cebb4e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "64661587-2bd7-4f9d-bfc3-74f67e7b4fb7")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/bdfa19e1-36e5-450a-ae11-ae1ca77ce641")
 		(sheetname "/")
@@ -15028,6 +16396,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c57e129b-6a20-47e1-9383-9ee77ec699aa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7c804f71-b154-4190-9e06-05796ff4a3a1")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -15400,6 +16794,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7c404056-a290-47ca-8a58-0e3404563a45")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e3ff58fa-2a10-4d17-936e-42574f7d753a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/58db6a3c-862e-4010-8028-054192633743")
 		(sheetname "/")
@@ -15558,6 +16978,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ae675322-523d-4053-a257-480381d2cbf8")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "78847fc1-1b75-4cf0-bd84-a839d537061c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/830cdfaa-0f6b-44b1-9703-9951e813c605")
 		(sheetname "/")
@@ -15705,6 +17151,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "722cf88d-5098-4b74-ac30-955c864968a6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "62e6beeb-4fbd-48d9-a7e9-e718426ef86e")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -16005,6 +17477,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7fac144a-3e46-48f7-9788-942fa6e1596e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3adcea20-121a-4904-89cb-14d0badc3cf6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/e6f52e36-e996-48c4-80c6-eff0736c8391")
 		(sheetname "/")
@@ -16156,6 +17654,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "b2846d8a-487c-43ac-a0bb-9af7f442fb45")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a897dc35-b58f-4a3d-9fa9-dde27adbf091")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "09ecb735-4fea-4551-823f-233a2f6fe501")
 			(effects
 				(font
 					(size 1 1)
@@ -16322,6 +17846,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d47fb30b-e5d0-46f5-9a3c-2404b5badc36")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "675573fb-b3f0-40e2-80d9-c65f878ab111")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/a40e40d1-4f68-4beb-9e43-b34ed39c7158")
 		(sheetname "/")
@@ -16468,6 +18018,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "795f911a-60f9-4a37-a43e-e8dbe0666a01")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3395d6fb-af01-40c1-9354-b2f025248d99")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -16754,6 +18330,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "24f8d266-90a7-4dbc-b975-d47a7ee9f514")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "336c2b7b-ef72-4b31-935f-216aa6a760aa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f3c4ba2d-c975-40d7-bbe2-cc3bb1ce727a")
 			(effects
 				(font
 					(size 1 1)
@@ -17059,6 +18661,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b5b71c16-6c7c-40cd-bd0f-957bafc353bb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a2a26139-ae9b-4448-b3d1-608cdb3797d7")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/2748cfc0-d01c-478a-bba6-b6c3f8f29d74")
 		(sheetname "/")
@@ -17210,6 +18838,32 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "dac19145-6941-4230-b932-26fef94f6c96")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "49ab6028-0493-4ff6-b2ec-5166fcf59219")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95321bf7-c8da-4178-80a7-eb087aeef93c")
 			(effects
 				(font
 					(size 1 1)
@@ -17375,6 +19029,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ca3773c4-41c8-4e33-9f38-9a764ae3364e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6b452eb9-1910-4e0b-9b75-9b936a37eb53")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/e0099bbf-5211-45e1-a142-42368f5cec61")
 		(sheetname "/")
@@ -17522,6 +19202,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "37541fea-9a53-4105-a72b-fe1eb20f64fb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "acd2113f-1026-4a8e-830b-45a0b1654ef4")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -17895,6 +19601,32 @@
 				)
 			)
 		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "27f8c52d-9a0e-42ef-87f9-c619a1d5d3c9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c172f078-21ed-4603-9339-ce721f8c0477")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "MountingHole*")
 		(path "/6911abee-112c-467d-b20c-6ae306a44a66")
 		(sheetname "/")
@@ -17999,6 +19731,32 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2a3d6fe4-5b83-4246-8871-a6d6882615b1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "593d5fa4-6c45-45f4-8fe8-5fce422f03f7")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
