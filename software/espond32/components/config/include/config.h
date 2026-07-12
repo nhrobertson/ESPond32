@@ -14,6 +14,7 @@
 #define NUM_LEDS          (NUM_DEVICES + 1) //1 - Pump 1, 2 - Pump 2, 3 - Valve 1, 4 - Light 1, 5 - Float Sensor
 
 #define DEBOUNCE_SAMPLES      5
+#define MAX_FILL_MIN          25  //Max continuous fill duration before lockout (stuck float failsafe)
 //GPIO Definitions
 #define PUMP1_SSR_GPIO        GPIO_NUM_4
 #define PUMP1_SW_A_GPIO       GPIO_NUM_5

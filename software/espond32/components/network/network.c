@@ -20,15 +20,15 @@ static bool s_sntp_running = false;
 
 wifi_config_t sta_cfg = {
   .sta = {
-    .ssid       = "ssid",
-    .password   = "password",
+    .ssid       = "***REMOVED***",
+    .password   = "***REMOVED***",
     .threshold.authmode = WIFI_AUTH_WPA2_PSK,
   }
 };
 
 esp_mqtt_client_config_t mqtt_cfg = {
     .broker = {
-        .address.uri = "mqtt://IP_ADDR",   // your Mosquitto box
+        .address.uri = "mqtt://192.168.1.121",   // your Mosquitto box
     },
     .credentials = {
         .client_id = "espondcu",            // stable, human-readable
@@ -109,7 +109,7 @@ static void handle_config_msg(esp_mqtt_event_handle_t event) {
     return;
   }
 
-  if (recieved.version > g_espond_cfg.version) {
+  if (recieved.version != g_espond_cfg.version) {
     ESP_LOGI(TAG, "applying config update, version %d -> %d", g_espond_cfg.version, recieved.version);
     xSemaphoreTake(cfg_buff_mutex, portMAX_DELAY);
     //Begin Replacement

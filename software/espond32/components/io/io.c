@@ -119,8 +119,8 @@ esp_err_t io_setup(device_t *device) {
     case (DEV_FLOAT):
       gpio_num_t float_sens = ((const input_pins_t*)device->pins)->float_sens;
 
-      //Idle LOW with nothing wired -> resolves to "not active" (no water sensed)
-      ret = configure_gpio(float_sens, GPIO_MODE_INPUT, GPIO_INTR_DISABLE, GPIO_PULLDOWN_ONLY);
+      //Idle HIGH via external 10k pull-up - switch closes to GND when float is in water
+      ret = configure_gpio(float_sens, GPIO_MODE_INPUT, GPIO_INTR_DISABLE, GPIO_FLOATING);
 
       break;
   }

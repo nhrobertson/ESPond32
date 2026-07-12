@@ -6,6 +6,7 @@
 static const char *TAG = "espond32 - float";
 
 static int64_t float_deadline_us = 0;
+static int64_t fill_start_us = 0;
 static leak_check_t leak_check = {0};
 
 static inline int64_t minutes_us(int m) {
@@ -66,6 +67,7 @@ bool eval_float_state(device_t *dev) {
       if (!active) { dev->u.in.state = FILL_IDLE; return false; }
       if (time_us >= float_deadline_us) {
         dev->u.in.state = FILL_FILLING;
+        fill_start_us = time_us;
         ESP_LOGI(TAG, "refill threshold met, filling");
         return true;
       }
@@ -78,6 +80,16 @@ bool eval_float_state(device_t *dev) {
         float_deadline_us = time_us + minutes_us(overflow_min);
         dev->u.in.state = FILL_OVERFLOW;
         ESP_LOGI(TAG, "float cleared, holding fill for overflow window");
+      } else if (time_us - fill_start_us >= minutes_us(MAX_FILL_MIN)) {
+        //Float never cleared: stuck sensor or open supply, engage lockout
+        dev->u.in.state = FILL_IDLE;
+        ESP_LOGW(TAG, "max fill duration exceeded, engaging lockout");
+        xSemaphoreTake(lockout_change_mutex, portMAX_DELAY);
+        lockout = true;
+        xSemaphoreGive(lockout_change_mutex);
+        set_sys_led_color(PIX_RED);
+        nvs_set_lockout(1);
+        return false;
       }
       return true;
 

@@ -4,6 +4,7 @@
 # from a checkout of this project already placed at /opt/espond-home-server:
 #
 #   sudo cp -r espond-home-server /opt/
+#   sudo rm -rf /opt/espond-home-server/.venv   # if the checkout came from another machine
 #   cd /opt/espond-home-server
 #   sudo bash deploy/setup.sh
 #
@@ -52,15 +53,30 @@ echo "==> Creating system user 'espond' (if missing)"
 id -u espond >/dev/null 2>&1 || useradd --system --home "$PROJECT_DIR" --shell /usr/sbin/nologin espond
 
 echo "==> Python venv + dependencies"
-python3 -m venv "$PROJECT_DIR/.venv"
-"$PROJECT_DIR/.venv/bin/pip" install --upgrade pip -q
+# All pip use must happen inside a venv: on Bookworm the system Python is
+# "externally managed" (PEP 668) and system-wide pip refuses to install anything.
+# A venv copied over from a dev machine (`cp -r espond-home-server /opt/` brings the
+# dev checkout's .venv along) has the wrong interpreter paths/architecture, and pip
+# run through it falls back to the system Python and hits that PEP 668 error —
+# so validate the venv actually works and belongs to this machine, else rebuild it.
+VENV="$PROJECT_DIR/.venv"
+VENV_PY="$VENV/bin/python"
+if [ -e "$VENV" ]; then
+  if ! "$VENV_PY" -c 'import sys; sys.exit(0 if sys.prefix != sys.base_prefix else 1)' >/dev/null 2>&1 \
+     || ! "$VENV_PY" -m pip --version >/dev/null 2>&1; then
+    echo "Existing $VENV is broken or was copied from another machine — recreating it."
+    rm -rf "$VENV"
+  fi
+fi
+python3 -m venv "$VENV"
+"$VENV_PY" -m pip install --upgrade pip -q
 # Raspbian's armhf wheels for some packages (pydantic-core, uvloop, etc.) aren't always on
 # PyPI proper — piwheels.org is the Raspberry Pi Foundation's ARM wheel index and is usually
 # already configured system-wide, but fall back to it explicitly here in case this venv
 # doesn't inherit that config, rather than silently compiling from source for 20+ minutes.
-if ! "$PROJECT_DIR/.venv/bin/pip" install -q -r "$PROJECT_DIR/requirements.txt"; then
+if ! "$VENV_PY" -m pip install -q -r "$PROJECT_DIR/requirements.txt"; then
   echo "Default install failed, retrying with piwheels as an extra index..."
-  "$PROJECT_DIR/.venv/bin/pip" install -q -r "$PROJECT_DIR/requirements.txt" \
+  "$VENV_PY" -m pip install -q -r "$PROJECT_DIR/requirements.txt" \
     --extra-index-url https://www.piwheels.org/simple
 fi
 
@@ -71,7 +87,17 @@ if [ ! -f /etc/mosquitto/espond_passwd ]; then
   echo "matches the firmware's current placeholder; change both together later):"
   mosquitto_passwd -b -c /etc/mosquitto/espond_passwd espond password
 fi
-systemctl restart mosquitto
+# mosquitto_passwd leaves the file root:root 0600; the broker reads it as root at startup
+# but newer mosquitto builds warn (and reloads fail) unless the mosquitto user can read it.
+chown root:mosquitto /etc/mosquitto/espond_passwd
+chmod 640 /etc/mosquitto/espond_passwd
+if ! systemctl restart mosquitto; then
+  echo "mosquitto failed to start. Its own error (from the journal) is:" >&2
+  journalctl -u mosquitto -n 20 --no-pager >&2 || true
+  echo "Common cause: an option in /etc/mosquitto/conf.d/espond.conf duplicating one already" >&2
+  echo "set in /etc/mosquitto/mosquitto.conf (mosquitto 2.x treats that as fatal)." >&2
+  exit 1
+fi
 systemctl enable mosquitto
 
 echo "==> systemd unit for the home server"
@@ -81,8 +107,8 @@ systemctl daemon-reload
 systemctl enable --now espond-home-server
 
 echo "==> Caddy reverse proxy"
-echo "Edit deploy/Caddyfile with your real domain before this step matters (it currently"
-echo "has a placeholder). Copying it to /etc/caddy/Caddyfile now regardless:"
+echo "Installing deploy/Caddyfile (LAN-only HTTP by default; see its comments to switch"
+echo "to HTTPS with a real domain for remote access):"
 cp "$PROJECT_DIR/deploy/Caddyfile" /etc/caddy/Caddyfile
 systemctl restart caddy
 systemctl enable caddy
@@ -106,12 +132,11 @@ cat <<'EOF'
 ==> Done.
 
 Next steps:
-  1. Edit /etc/caddy/Caddyfile with your real DDNS/domain, then `systemctl restart caddy`.
-  2. Forward ports 443 (and 80) on your router to this Pi.
-  3. Visit https://<your-domain>/ once DNS + port forwarding are live — first visit prompts
-     you to set the admin password.
-  4. Point the ESP32 firmware's broker URI at this Pi's LAN IP (network.c) if not already
+  1. Visit http://<this-pi's-LAN-IP>/ from inside your network — first visit prompts you
+     to set the admin password. (Want remote access instead? See the comments in
+     /etc/caddy/Caddyfile for the HTTPS/domain mode, then `systemctl restart caddy`.)
+  2. Point the ESP32 firmware's broker URI at this Pi's LAN IP (network.c) if not already
      done, and make sure its MQTT username/password match /etc/mosquitto/espond_passwd.
-  5. Change the Mosquitto and admin passwords from their placeholders (Settings page +
+  3. Change the Mosquitto and admin passwords from their placeholders (Settings page +
      `mosquitto_passwd /etc/mosquitto/espond_passwd espond`, then `systemctl restart mosquitto`).
 EOF

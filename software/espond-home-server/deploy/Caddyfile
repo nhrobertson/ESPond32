@@ -1,10 +1,21 @@
-# Reverse proxy with automatic HTTPS (Let's Encrypt) in front of the home server.
+# Caddy config in front of the home server. The app itself only listens on
+# 127.0.0.1:8000 — Caddy is the only doorway in, so pick ONE of the two modes below.
 #
-# Replace the placeholder domain with your own DDNS/domain name pointed at your home's
-# public IP, and forward ports 443 (and 80, for the ACME HTTP challenge) from your router
-# to this Pi. The app itself only listens on 127.0.0.1:8000 — Caddy is the only thing that
-# should ever be reachable directly from the internet.
-
-your-espond-domain.example.com {
+# MODE 1 (default): LAN-only, plain HTTP. Visit http://<pi-lan-ip>/ from inside your
+# network. No domain, no port forwarding, nothing exposed to the internet.
+http://:80 {
     reverse_proxy 127.0.0.1:8000
 }
+
+# MODE 2: remote access with automatic HTTPS (Let's Encrypt). Delete the block above,
+# uncomment this one, and replace the placeholder with a domain/DDNS name pointed at your
+# home's public IP (a subdomain like pond.example.com works fine and doesn't affect
+# whatever the apex domain hosts). Then forward ports 443 AND 80 (needed for the ACME
+# HTTP challenge) from your router to this Pi, and `systemctl restart caddy`.
+# Note: needs a real (non-CGNAT) public IP, and a DDNS updater if your ISP IP is dynamic.
+# ALSO: remove the ESPOND_COOKIE_SECURE=false line from espond-home-server.service (see the
+# comment there) so the session cookie goes back to HTTPS-only, then restart both services.
+#
+# your-espond-domain.example.com {
+#     reverse_proxy 127.0.0.1:8000
+# }

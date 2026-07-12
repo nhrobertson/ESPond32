@@ -70,12 +70,7 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [
-        [
-          "items_not_allowed|183750000|59930000|920ccbfe-05ba-4bc4-9e17-9b247424b832|00000000-0000-0000-0000-000000000000",
-          "ESP32S3-WROOM-1 Footprint Error"
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },

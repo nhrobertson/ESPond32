@@ -9,6 +9,10 @@ User=espond
 Group=espond
 WorkingDirectory=/opt/espond-home-server
 Environment=ESPOND_DB_PATH=/opt/espond-home-server/espond.db
+# Matches the LAN-only plain-HTTP Caddyfile default: without this the session cookie is
+# marked Secure, browsers drop it over http://, and login silently bounces back to /login.
+# If you switch Caddy to the HTTPS/domain mode, DELETE this line so the cookie is Secure again.
+Environment=ESPOND_COOKIE_SECURE=false
 ExecStart=/opt/espond-home-server/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
 Restart=on-failure
 RestartSec=5
