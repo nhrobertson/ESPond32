@@ -41,9 +41,14 @@
       if (!card) return;
       const stateBadge = card.querySelector(".state-badge");
       if (!stateBadge) return;
-      const isFloat = entry.name === "float1";
-      stateBadge.textContent = entry.state ? (isFloat ? "WET" : "ON") : isFloat ? "DRY" : "OFF";
-      stateBadge.className = "badge state-badge " + (entry.state ? "badge-on" : "badge-off");
+      if (entry.name === "float1") {
+        // state === true means the float is out of the water (level LOW, fill needed).
+        stateBadge.textContent = entry.state ? "LOW" : "OK";
+        stateBadge.className = "badge state-badge " + (entry.state ? "badge-warn" : "badge-on");
+      } else {
+        stateBadge.textContent = entry.state ? "ON" : "OFF";
+        stateBadge.className = "badge state-badge " + (entry.state ? "badge-on" : "badge-off");
+      }
     });
   }
 

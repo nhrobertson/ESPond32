@@ -85,10 +85,14 @@ rejected**, with no partial apply and no error reported back to the server over 
 - `days`: array of integers **0–6** (Sunday=0 through Saturday=6, matching C `tm_wday` — **not**
   weekday abbreviation strings). Empty array is valid (means "no day is scheduled," equivalent in
   effect to a null on/off). Any value outside 0–6 rejects the whole message.
-- `float_sens.threshold_min`: minutes the float sensor must read "wet" continuously before the
-  device treats a fill as intentional and opens `valve1` (debounces brief splashes/waves).
-- `float_sens.overflow_min`: minutes after the sensor reads "dry" again before the fill is
-  considered fully finished (closes out the fill cycle / daily fill count).
+- `float_sens.threshold_min`: minutes the float sensor must continuously read "low" (float out
+  of the water) before the device treats it as a genuine low level and opens `valve1` to fill
+  (debounces brief dips from waves/ripples). Note the sensor polarity: the float line idles high
+  and closes to ground when the float is submerged, so `pond/status` reports `float1.state=true`
+  when the water is **low / a fill is wanted**, not when it is wet — see §3.4.
+- `float_sens.overflow_min`: minutes after the sensor reads "not low" again (float back in the
+  water) before the fill is considered fully finished (closes out the fill cycle / daily fill
+  count).
 - `float_sens.max_fills_per_day`: if the number of completed fill cycles in the current calendar
   day exceeds this, the device engages **leak lockout** (see §4) — forces `pump1`, `pump2`, and
   `valve1` off regardless of schedule or override, until explicitly cleared.
@@ -150,9 +154,11 @@ reports the resulting `state` (on/off) but not *why* it's in that state.
 ```
 
 - Despite the key being `"outputs"`, this array always has **5** entries, not 4 — `"float1"` is
-  included and its `"state"` means "sensor currently reads wet" (an input reading), not an output
-  being driven. The server must not treat all 5 entries uniformly if it plans to expose
-  actuator-only controls.
+  included and its `"state"` is an input reading, not an output being driven. `float1.state=true`
+  means the **float is out of the water (level LOW, a fill is wanted)**; `false` means the water
+  is up. This follows the firmware's sensor polarity (idle-high line pulled to ground when the
+  float is submerged) — do not read `true` as "wet." The server must not treat all 5 entries
+  uniformly if it plans to expose actuator-only controls.
 - `"state"` is the *actual* on/off/active state after all precedence resolution (leak lockout,
   switch, override, schedule) — it is the only place the server can observe the real-world
   outcome of a config or override push.

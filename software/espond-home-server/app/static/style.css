@@ -308,6 +308,11 @@ input:focus {
   color: var(--text-muted);
 }
 
+.badge-warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
 .actions {
   display: flex;
   gap: 0.5rem;

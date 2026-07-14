@@ -20,15 +20,15 @@ static bool s_sntp_running = false;
 
 wifi_config_t sta_cfg = {
   .sta = {
-    .ssid       = "***REMOVED***",
-    .password   = "***REMOVED***",
+    .ssid       = "ssid",
+    .password   = "password",
     .threshold.authmode = WIFI_AUTH_WPA2_PSK,
   }
 };
 
 esp_mqtt_client_config_t mqtt_cfg = {
     .broker = {
-        .address.uri = "mqtt://192.168.1.121",   // your Mosquitto box
+        .address.uri = "mqtt://IP_ADDR",   // your Mosquitto box
     },
     .credentials = {
         .client_id = "espondcu",            // stable, human-readable

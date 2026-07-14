@@ -36,14 +36,14 @@
   </div>
   {% endfor %}
 
-  <div class="card">
+  <div class="card" data-output="float1">
     <div class="card-header">
       <span class="card-title">Float sensor</span>
-      <span class="badge {{ 'badge-on' if float_state else 'badge-off' }}">
-        {{ "WET" if float_state else ("DRY" if float_state is not none else "—") }}
+      <span class="badge state-badge {{ 'badge-warn' if float_state else ('badge-on' if float_state is not none else 'badge-off') }}">
+        {{ "LOW" if float_state else ("OK" if float_state is not none else "—") }}
       </span>
     </div>
-    <p class="card-sub">Input only — cannot be overridden.</p>
+    <p class="card-sub">Input only — cannot be overridden. LOW means the float is out of the water and the pond needs filling; OK means the water level is up.</p>
   </div>
 </div>
 
